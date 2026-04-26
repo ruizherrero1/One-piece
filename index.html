@@ -457,6 +457,13 @@
     .btn-close-detail { grid-column:auto; }
   }
 </style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#8d1f1f">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="One Piece">
+<link rel="apple-touch-icon" href="icon-192.png">
+
 </head>
 <body>
 
@@ -2032,5 +2039,11 @@ updateProgress();
 renderList();
 setTimeout(()=>scrollToCurrentEp(), 300);
 </script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
+</script>
+
 </body>
 </html>
