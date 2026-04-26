@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="One Piece">
+<meta name="theme-color" content="#8d1f1f">
+<title>One Piece - Guia sin relleno</title>
+<link rel="icon" type="image/png" href="pngegg.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08131f;
+    --surface: rgba(10, 23, 35, 0.86);
+    --surface2: rgba(14, 32, 48, 0.96);
+    --surface3: #173349;
+    --border: rgba(242, 214, 151, 0.16);
+    --accent: #f2c14e;
+    --accent2: #ffe7a0;
+    --canon: #f7f3e8;
+    --filler: #de5a47;
+    --mixed: #4aa3d9;
+    --extra: #43b88f;
+    --text: #f6ecd7;
+    --text2: #b8c2cc;
+    --radius: 16px;
+    --shadow: 0 18px 50px rgba(0, 0, 0, 0.34);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html, body { height:100%; overflow:hidden; background:var(--bg); }
+
+  /* LAYOUT */
+  body {
+    display:flex;
+    flex-direction:column;
+    font-family:'Barlow', sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(circle at top, rgba(242,193,78,0.18), transparent 28%),
+      radial-gradient(circle at 18% 18%, rgba(74,163,217,0.18), transparent 22%),
+      linear-gradient(180deg, #11253a 0%, #08131f 44%, #061018 100%);
+  }
+  body::before,
+  body::after {
+    content:"";
+    position:fixed;
+    pointer-events:none;
+    z-index:0;
+  }
+  body::before {
+    width:340px;
+    height:340px;
+    top:-120px;
+    right:-90px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(242,193,78,0.18), transparent 68%);
+    filter:blur(8px);
+  }
+  body::after {
+    left:-120px;
+    bottom:8%;
+    width:280px;
+    height:280px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(155,29,32,0.18), transparent 70%);
+    filter:blur(12px);
+  }
+  button,
+  input {
+    -webkit-appearance:none;
+    appearance:none;
+    touch-action:manipulation;
+  }
+
+  header {
+    flex-shrink:0;
+    background:
+      linear-gradient(135deg, rgba(125, 20, 24, 0.95), rgba(22, 57, 83, 0.94)),
+      linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+    border-bottom: 1px solid rgba(255, 231, 160, 0.2);
+    padding: 14px 16px 12px;
+    position: relative;
+    z-index: 10;
+    box-shadow: var(--shadow);
+  }
+  header::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent),
+      repeating-linear-gradient(120deg, transparent 0 16px, rgba(255,255,255,0.02) 16px 18px);
+    pointer-events:none;
+  }
+  .header-top {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px;
+    position:relative;
+    z-index:1;
+  }
+  .logo-wrap {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-width:0;
+  }
+  .logo-mark {
+    width:56px;
+    height:56px;
+    object-fit:contain;
+    filter:drop-shadow(0 10px 16px rgba(0,0,0,0.28));
+    flex-shrink:0;
+  }
+  .logo {
+    font-family:'Bebas Neue', sans-serif;
+    font-size:30px;
+    letter-spacing:2.2px;
+    color:#fff7df;
+    line-height:0.95;
+    text-shadow:0 2px 14px rgba(0,0,0,0.25);
+  }
+  .logo span {
+    color:rgba(255, 239, 196, 0.82);
+    font-size:12px;
+    font-family:'Barlow', sans-serif;
+    font-weight:600;
+    letter-spacing:0.6px;
+    text-transform:uppercase;
+    display:block;
+    margin-top:4px;
+  }
+  .progress-pill {
+    margin-left:auto;
+    background: rgba(8, 19, 31, 0.64);
+    border: 1px solid rgba(255, 231, 160, 0.2);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size:12px;
+    font-weight:700;
+    color: #fff1bb;
+    white-space:nowrap;
+    font-family:'Barlow Condensed', sans-serif;
+    letter-spacing:0.8px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+  }
+
+  /* SEARCH */
+  .search-wrap { position:relative; margin-bottom:9px; z-index:1; }
+  .search-wrap input {
+    width:100%;
+    background: rgba(9, 22, 34, 0.74);
+    border: 1px solid rgba(255, 231, 160, 0.16);
+    border-radius: 14px;
+    padding: 12px 42px 12px 40px;
+    color: #fff7e0;
+    font-size:15px;
+    font-family:'Barlow', sans-serif;
+    outline:none;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .search-wrap input:focus {
+    border-color: rgba(242, 193, 78, 0.55);
+    box-shadow: 0 0 0 3px rgba(242, 193, 78, 0.12);
+    background: rgba(11, 28, 43, 0.88);
+  }
+  .search-wrap input::placeholder { color:rgba(214, 223, 232, 0.56); }
+  .search-icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--accent2); font-size:15px; pointer-events:none; }
+  .clear-btn { position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--accent2); font-size:18px; cursor:pointer; line-height:1; display:none; padding:6px; border-radius:50%; }
+  .clear-btn.show { display:block; }
+
+  /* FILTERS */
+  .filters { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px; position:relative; z-index:1; }
+  .filters::-webkit-scrollbar { display:none; }
+  .filter-btn {
+    flex-shrink:0;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 231, 160, 0.15);
+    background: rgba(8, 19, 31, 0.58);
+    color: #dbe4ec;
+    font-size:12px;
+    font-weight:700;
+    font-family:'Barlow Condensed', sans-serif;
+    letter-spacing:0.7px;
+    cursor:pointer;
+    transition: all 0.15s ease;
+    white-space:nowrap;
+  }
+  .filter-btn.active { background:var(--accent); border-color:var(--accent); color:#111; box-shadow:0 10px 20px rgba(242, 193, 78, 0.22); }
+  .filter-btn.f-canon.active { background:var(--canon); border-color:var(--canon); color:#000; }
+  .filter-btn.f-filler.active { background:var(--filler); border-color:var(--filler); color:#fff; }
+  .filter-btn.f-mixed.active { background:var(--mixed); border-color:var(--mixed); color:#fff; }
+
+  /* MAIN SCROLL */
+  main { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; position:relative; z-index:1; }
+
+  /* CURRENT EP BANNER */
+  #current-banner {
+    margin: 14px 14px 6px;
+    background:
+      linear-gradient(135deg, rgba(142, 31, 31, 0.92), rgba(11, 30, 46, 0.96)),
+      linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+    border: 1px solid rgba(255, 231, 160, 0.18);
+    border-radius:18px;
+    padding:14px 14px 12px;
+    display:none;
+    box-shadow: var(--shadow);
+  }
+  #current-banner.show { display:block; }
+  .banner-label { font-size:10px; font-weight:700; letter-spacing:1.2px; color:var(--accent2); font-family:'Barlow Condensed'; text-transform:uppercase; margin-bottom:4px; }
+  .banner-ep { font-size:20px; font-weight:700; color:#fff; font-family:'Barlow Condensed'; }
+  .banner-title { font-size:12px; color:rgba(246, 236, 215, 0.74); margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .banner-actions { display:flex; gap:8px; margin-top:8px; }
+  .banner-btn {
+    flex:1; padding:10px 0; border-radius:12px; border:1px solid transparent; cursor:pointer;
+    font-size:12px; font-weight:700; font-family:'Barlow Condensed'; letter-spacing:0.7px;
+    transition: opacity 0.15s, transform 0.15s;
+  }
+  .banner-btn:active { opacity:0.7; }
+  .btn-goto { background:var(--accent); color:#111; }
+  .btn-prev { background:rgba(8, 19, 31, 0.64); color:var(--text2); border-color:rgba(255, 231, 160, 0.12); }
+  .btn-next { background:rgba(8, 19, 31, 0.64); color:var(--accent2); border-color:rgba(255, 231, 160, 0.12); }
+
+  /* SEASON GROUPS */
+  .season-group { margin: 12px 0 0; }
+  .season-header {
+    padding: 10px 16px;
+    display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer;
+    user-select:none;
+    position:sticky; top:0;
+    background: linear-gradient(90deg, rgba(14, 32, 48, 0.96), rgba(10, 23, 35, 0.92));
+    border-top: 1px solid rgba(255, 231, 160, 0.1);
+    border-bottom: 1px solid rgba(255, 231, 160, 0.08);
+    z-index:5;
+    backdrop-filter: blur(10px);
+  }
+  .season-header:active { background:var(--surface2); }
+  .season-name {
+    font-family:'Barlow Condensed', sans-serif;
+    font-size:14px; font-weight:700;
+    color: #ffe7a0;
+    letter-spacing:0.5px;
+    flex:1;
+    padding-right:8px;
+    line-height:1.2;
+  }
+  .season-meta { font-size:11px; color:rgba(214, 223, 232, 0.68); white-space:nowrap; text-align:right; }
+  .season-meta span { display:block; }
+  .season-chevron { color:rgba(214, 223, 232, 0.62); font-size:12px; margin-left:8px; transition:transform 0.2s; flex-shrink:0; }
+  .season-group.open .season-chevron { transform:rotate(180deg); }
+  .season-episodes { display:none; }
+  .season-group.open .season-episodes { display:block; }
+
+  /* ARC LABEL */
+  .arc-label {
+    padding: 6px 16px 4px;
+    font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+    color:rgba(214, 223, 232, 0.62);
+    font-family:'Barlow Condensed';
+    background:transparent;
+  }
+
+  /* EPISODE ROW */
+  .ep-row {
+    display:flex;
+    align-items:center;
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255, 231, 160, 0.07);
+    gap:10px;
+    cursor:pointer;
+    transition: background 0.1s;
+    background: rgba(7, 18, 29, 0.58);
+    position:relative;
+  }
+  .ep-row:active { background:rgba(18, 41, 59, 0.96); }
+  .ep-row.current-ep { background: linear-gradient(90deg, rgba(242, 193, 78, 0.12), rgba(9, 22, 34, 0.78)); }
+  .ep-row.watched { opacity:0.45; }
+
+  .ep-num {
+    font-family:'Barlow Condensed', sans-serif;
+    font-size:16px; font-weight:700;
+    min-width:36px;
+    text-align:right;
+    flex-shrink:0;
+  }
+  .ep-num.canon { color:var(--canon); }
+  .ep-num.filler { color:var(--filler); }
+  .ep-num.mixed { color:var(--mixed); }
+  .ep-num.extra { color:var(--extra); }
+
+  .ep-dot {
+    width:6px; height:6px; border-radius:50%; flex-shrink:0; margin-top:1px;
+  }
+  .ep-dot.canon { background:var(--canon); }
+  .ep-dot.filler { background:var(--filler); }
+  .ep-dot.mixed { background:var(--mixed); }
+  .ep-dot.extra { background:var(--extra); }
+
+  .ep-info { flex:1; min-width:0; }
+  .ep-title { font-size:13px; font-weight:600; color:var(--text); line-height:1.3; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ep-title.filler { color:rgba(214, 223, 232, 0.58); text-decoration:line-through; text-decoration-color:rgba(224,80,80,0.5); }
+  .ep-sub { font-size:11px; color:rgba(214, 223, 232, 0.62); margin-top:3px; }
+  .ep-badge {
+    font-size:9px; font-weight:700; letter-spacing:0.8px;
+    padding:2px 6px; border-radius:4px; flex-shrink:0;
+    font-family:'Barlow Condensed';
+    text-transform:uppercase;
+  }
+  .ep-badge.filler { background:rgba(224,80,80,0.15); color:var(--filler); border:1px solid rgba(224,80,80,0.2); }
+  .ep-badge.mixed { background:rgba(80,144,232,0.15); color:var(--mixed); border:1px solid rgba(80,144,232,0.2); }
+  .ep-badge.extra { background:rgba(64,192,128,0.15); color:var(--extra); border:1px solid rgba(64,192,128,0.2); }
+
+  .current-marker {
+    position:absolute; left:0; top:0; bottom:0;
+    width:4px; background:linear-gradient(180deg, #ffe7a0, #f2c14e); border-radius:0 4px 4px 0;
+  }
+  .watch-check {
+    width:40px; height:40px; border-radius:14px;
+    border: 1.5px solid rgba(255, 231, 160, 0.16);
+    background: rgba(12, 28, 42, 0.8); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    color:transparent; font-size:16px; font-weight:700;
+    flex-shrink:0; transition: all 0.15s;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .ep-row.watched .watch-check { background:rgba(242, 193, 78, 0.16); border-color:rgba(242, 193, 78, 0.26); color:#ffe7a0; }
+
+  /* EPISODE DETAIL */
+  #detail-overlay {
+    position:fixed; inset:0; z-index:100;
+    background:rgba(3, 8, 14, 0.78);
+    display:none; align-items:flex-end;
+    backdrop-filter:blur(8px);
+  }
+  #detail-overlay.show { display:flex; }
+  #detail-panel {
+    width:100%;
+    background:
+      linear-gradient(180deg, rgba(16, 39, 57, 0.98), rgba(7, 18, 29, 0.99)),
+      linear-gradient(140deg, rgba(242,193,78,0.06), transparent);
+    border-radius:24px 24px 0 0;
+    padding:20px 20px calc(24px + env(safe-area-inset-bottom));
+    max-height:82vh; overflow-y:auto;
+    transform:translateY(100%);
+    transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    border-top: 1px solid rgba(255, 231, 160, 0.16);
+    box-shadow: 0 -18px 40px rgba(0,0,0,0.35);
+  }
+  #detail-overlay.show #detail-panel { transform:translateY(0); }
+  .detail-handle { width:52px; height:5px; background:rgba(255, 231, 160, 0.24); border-radius:999px; margin:0 auto 20px; }
+  .detail-type-row { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+  .detail-num { font-family:'Bebas Neue'; font-size:42px; color:var(--accent); line-height:1; }
+  .detail-badge { font-size:11px; font-weight:700; padding:3px 8px; border-radius:5px; font-family:'Barlow Condensed'; letter-spacing:0.5px; }
+  .detail-title { font-size:17px; font-weight:700; color:#fff; line-height:1.3; margin-bottom:6px; }
+  .detail-season { font-size:12px; color:rgba(214, 223, 232, 0.72); margin-bottom:14px; }
+  .detail-info-row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+  .detail-tag { background:rgba(255, 231, 160, 0.08); padding:5px 10px; border-radius:999px; font-size:12px; color:#fff1bb; font-family:'Barlow Condensed'; border:1px solid rgba(255, 231, 160, 0.1); }
+  .detail-note {
+    background:rgba(80,144,232,0.08);
+    border:1px solid rgba(80,144,232,0.15);
+    border-radius:12px; padding:12px 12px;
+    font-size:12px; color:var(--text); line-height:1.5;
+    margin-bottom:16px;
+  }
+  .detail-actions {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    position:sticky;
+    bottom:calc(-1 * env(safe-area-inset-bottom));
+    background:linear-gradient(180deg, rgba(7, 18, 29, 0), rgba(7, 18, 29, 0.92) 24%, rgba(7, 18, 29, 0.98) 100%);
+    padding-top:14px;
+    margin-top:16px;
+  }
+  .detail-action-btn {
+    min-height:54px;
+    padding:14px 12px; border-radius:14px; border:1px solid transparent; cursor:pointer;
+    font-size:13px; font-weight:700; font-family:'Barlow Condensed'; letter-spacing:0.6px;
+    transition:opacity 0.15s;
+    box-shadow: 0 10px 18px rgba(0,0,0,0.16);
+  }
+  .detail-action-btn:active { opacity:0.7; }
+  .btn-set-current { background:var(--accent); color:#111; }
+  .btn-toggle-watch { background:rgba(16, 39, 57, 0.94); color:var(--text); border-color:rgba(255, 231, 160, 0.12); }
+  .btn-mark-upto {
+    background:linear-gradient(135deg, rgba(242, 193, 78, 0.98), rgba(255, 231, 160, 0.96));
+    color:#231600;
+    border:1px solid rgba(255, 231, 160, 0.34);
+    min-height:60px;
+    font-size:15px;
+  }
+  .btn-mark-upto { grid-column:1/-1; }
+  .btn-close-detail { grid-column:1/-1; background:rgba(16, 39, 57, 0.9); color:rgba(214, 223, 232, 0.78); border-color:rgba(255, 231, 160, 0.1); }
+
+  /* JUMP TO EP */
+  .jump-wrap { padding:10px 14px 6px; display:flex; gap:8px; align-items:center; }
+  .jump-wrap input {
+    flex:1; background:rgba(8, 19, 31, 0.64); border:1px solid rgba(255, 231, 160, 0.12);
+    border-radius:12px; padding:10px 12px; color:var(--text);
+    font-size:15px; font-family:'Barlow'; outline:none;
+  }
+  .jump-btn {
+    background:var(--accent); color:#111; border:none;
+    border-radius:12px; padding:10px 16px;
+    font-size:13px; font-weight:700; font-family:'Barlow Condensed';
+    cursor:pointer; white-space:nowrap;
+  }
+
+  /* NO RESULTS */
+  .no-results { text-align:center; padding:52px 20px; color:rgba(214, 223, 232, 0.78); font-size:14px; }
+
+  /* STATS BAR */
+  .stats-bar {
+    padding: 10px 16px;
+    display:flex; gap:16px;
+    border-bottom:1px solid rgba(255, 231, 160, 0.08);
+    background:rgba(5, 16, 26, 0.84);
+    font-size:11px; font-family:'Barlow Condensed'; font-weight:600; letter-spacing:0.3px;
+    flex-shrink:0;
+    overflow-x:auto;
+    scrollbar-width:none;
+    position:relative;
+    z-index:1;
+  }
+  .stats-bar::-webkit-scrollbar { display:none; }
+  .stat { display:flex; align-items:center; gap:4px; }
+  .stat-dot { width:7px; height:7px; border-radius:50%; }
+  .stat-val { color:rgba(214, 223, 232, 0.72); }
+
+  /* SCROLLED INDICATOR */
+  .scroll-fab {
+    position:fixed; bottom:20px; right:16px;
+    width:52px; height:52px; border-radius:18px;
+    background:linear-gradient(135deg, var(--accent), #ffe7a0); color:#111;
+    border:none; cursor:pointer;
+    font-size:20px; display:none; align-items:center; justify-content:center;
+    box-shadow:0 14px 26px rgba(0,0,0,0.34);
+    z-index:50;
+    transition: transform 0.2s;
+  }
+  .scroll-fab.show { display:flex; }
+  .scroll-fab:active { transform:scale(0.9); }
+  @media (max-width: 720px) {
+    .header-top { align-items:flex-start; }
+    .logo { font-size:28px; }
+    .progress-pill { padding:8px 12px; font-size:11px; }
+    .banner-actions { flex-direction:column; }
+    .detail-actions { grid-template-columns:1fr; }
+    .btn-mark-upto,
+    .btn-close-detail { grid-column:auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="logo-wrap">
+      <img class="logo-mark" src="pngegg.png" alt="Logo de One Piece">
+      <div class="logo">One Piece<span>Guia sin relleno para seguir el viaje</span></div>
+    </div>
+    <div class="progress-pill" id="progress-pill">EP 1 / 1158</div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search-input" placeholder="Buscar episodio o nº..." inputmode="search">
+    <button class="clear-btn" id="clear-btn">✕</button>
+  </div>
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-f="all">Todos</button>
+    <button class="filter-btn f-canon" data-f="canon">Canon ✓</button>
+    <button class="filter-btn f-filler" data-f="filler">Relleno ✕</button>
+    <button class="filter-btn f-mixed" data-f="mixed">Mixto ↔</button>
+    <button class="filter-btn" data-f="unwatched">No vistos</button>
+  </div>
+</header>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-dot" style="background:var(--canon)"></div><span>Canon</span> <span class="stat-val" id="s-canon">1060</span></div>
+  <div class="stat"><div class="stat-dot" style="background:var(--filler)"></div><span>Relleno</span> <span class="stat-val" id="s-filler">98</span></div>
+  <div class="stat"><div class="stat-dot" style="background:var(--mixed)"></div><span>Mixto</span> <span class="stat-val" id="s-mixed">—</span></div>
+  <div class="stat"><div class="stat-dot" style="background:#888"></div><span>Vistos</span> <span class="stat-val" id="s-watched">0</span></div>
+</div>
+
+<main id="main">
+  <div id="current-banner" class="current-banner">
+    <div class="banner-label">▶ Estoy en</div>
+    <div class="banner-ep" id="banner-ep-num">—</div>
+    <div class="banner-title" id="banner-ep-title">—</div>
+    <div class="banner-actions">
+      <button class="banner-btn btn-prev" id="banner-prev">◀ Anterior</button>
+      <button class="banner-btn btn-goto" id="banner-goto">Ir al episodio</button>
+      <button class="banner-btn btn-next" id="banner-next">Siguiente ▶</button>
+    </div>
+  </div>
+  <div id="episode-list"></div>
+</main>
+
+<button class="scroll-fab" id="scroll-fab" title="Ir al episodio actual">⚓</button>
+
+<!-- DETAIL OVERLAY -->
+<div id="detail-overlay">
+  <div id="detail-panel">
+    <div class="detail-handle"></div>
+    <div class="detail-type-row">
+      <div class="detail-num" id="d-num">001</div>
+      <div class="detail-badge" id="d-badge">Canon</div>
+    </div>
+    <div class="detail-title" id="d-title"></div>
+    <div class="detail-season" id="d-season"></div>
+    <div class="detail-info-row" id="d-info"></div>
+    <div class="detail-note" id="d-note" style="display:none"></div>
+    <div class="detail-actions">
+      <button class="detail-action-btn btn-set-current" id="d-set-current">Marcar posicion</button>
+      <button class="detail-action-btn btn-toggle-watch" id="d-toggle-watch">Marcar visto</button>
+      <button class="detail-action-btn btn-mark-upto" id="d-mark-upto">Vistos hasta aqui</button>
+      <button class="detail-action-btn btn-close-detail" id="d-close">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// =============================================
+// DATA — All seasons/episodes
+// =============================================
+const SEASONS = [
+{id:1, name:"T1: East Blue", range:"001-061", eps:[
+  {n:1,t:"¡Soy Luffy! ¡El hombre que se convertirá en el Rey de los Piratas!",tp:"canon",arc:"Romance Dawn",start:"2:05"},
+  {n:2,t:"¡Aparece el gran espadachín! El Cazador de Piratas, Roronoa Zoro",tp:"canon",arc:"Romance Dawn",start:"2:05"},
+  {n:3,t:"¡Morgan contra Luffy! ¿Quién es esa belleza misteriosa?",tp:"canon",arc:"Romance Dawn",start:"3:03"},
+  {n:4,t:"¡El pasado de Luffy! Aparece Shanks, el Pelirrojo",tp:"canon",arc:"Romance Dawn",start:"2:05"},
+  {n:5,t:"¡Un poder misterioso y temible! ¡El capitán pirata, Buggy, el payaso!",tp:"canon",arc:"Ciudad Orange",start:"2:35"},
+  {n:6,t:"¡Situación desesperada! ¡Mohji, el domador de bestias, contra Luffy!",tp:"canon",arc:"Ciudad Orange",start:"2:43"},
+  {n:7,t:"¡Gran duelo! ¡El maestro de la espada Zoro contra el acróbata Cabaji!",tp:"canon",arc:"Ciudad Orange",start:"2:48"},
+  {n:8,t:"¿Quién vencerá? ¡Lucha entre usuarios de las Frutas del Diablo!",tp:"canon",arc:"Ciudad Orange",start:"2:29"},
+  {n:9,t:"¿El mentiroso justiciero? El capitán Usopp",tp:"canon",arc:"Villa Syrup",start:"2:05"},
+  {n:10,t:"¡El tipo más raro de la historia! Jango, el hipnotista",tp:"canon",arc:"Villa Syrup",start:"3:00"},
+  {n:11,t:"¡Revela la conspiración! El mayordomo pirata, el capitán Kuro",tp:"canon",arc:"Villa Syrup",start:"3:53"},
+  {n:12,t:"¡Enfrentamiento! La tripulación de Kuroneko. ¡Gran batalla en la cuesta!",tp:"canon",arc:"Villa Syrup",start:"2:41"},
+  {n:13,t:"¡El temible dúo! Los hermanos Nyaban contra Zoro",tp:"canon",arc:"Villa Syrup",start:"3:21"},
+  {n:14,t:"¡Luffy se recupera! La desesperada resistencia de la señorita Kaya",tp:"canon",arc:"Villa Syrup",start:"2:50"},
+  {n:15,t:"¡Derroten a Kuro! ¡La decisión entre lágrimas del hombre Usopp!",tp:"canon",arc:"Villa Syrup",start:"3:15"},
+  {n:16,t:"¡Protejan a Kaya! ¡La gran hazaña de la tripulación pirata de Usopp!",tp:"canon",arc:"Villa Syrup",start:"3:52"},
+  {n:17,t:"¡Explosión de ira! ¡Kuro contra Luffy! ¡Hora de saldar cuentas!",tp:"canon",arc:"Villa Syrup",start:"2:28"},
+  {n:18,t:"¡Tú eres la criatura extraña! Gaimon y sus particulares compañeros",tp:"canon",arc:"Villa Syrup",start:"2:05"},
+  {n:19,t:"¡El pasado del Santouryuu! ¡El juramento de Zoro y Kuina!",tp:"canon",arc:"Baratie",start:"2:05"},
+  {n:20,t:"¡El cocinero famoso! Sanji del Restaurante Flotante",tp:"canon",arc:"Baratie",start:"3:00"},
+  {n:21,t:"¡Un cliente no deseado! La comida de Sanji y la deuda de Gin",tp:"canon",arc:"Baratie",start:"2:50"},
+  {n:22,t:"¡La flota pirata más poderosa! El comodoro Don Krieg",tp:"canon",arc:"Baratie",start:"2:55"},
+  {n:23,t:"¡Protejan el Baratie! ¡El gran pirata, Pies Rojos Zeff!",tp:"canon",arc:"Baratie",start:"3:31"},
+  {n:24,t:"¡Ojos de Halcón Mihawk! El gran espadachín Zoro cae en el mar",tp:"canon",arc:"Baratie",start:"2:21"},
+  {n:25,t:"¡Explota la técnica mortal de piernas! Sanji contra Muro de Hierro Pearl",tp:"canon",arc:"Baratie",start:"2:39"},
+  {n:26,t:"El sueño de Zeff y Sanji. El legendario All Blue",tp:"canon",arc:"Baratie",start:"2:08"},
+  {n:27,t:"Un demonio frío y despiadado. El comandante de la flota pirata, Gin",tp:"canon",arc:"Baratie",start:"3:15"},
+  {n:28,t:"¡No voy a morir! ¡Batalla feroz! ¡Luffy contra Krieg!",tp:"canon",arc:"Baratie",start:"3:42"},
+  {n:29,t:"¡El final de la pelea a muerte! ¡La lanza que uno tiene en su interior!",tp:"canon",arc:"Baratie",start:"3:56"},
+  {n:30,t:"¡Hora de emprender el viaje! El cocinero de mar se va con Luffy",tp:"canon",arc:"Baratie",start:"4:15"},
+  {n:31,t:"¡El hombre más malvado de las aguas del este! ¡El pirata gyojin, Arlong!",tp:"canon",arc:"Arlong Park",start:"2:05"},
+  {n:32,t:"¡La bruja de la aldea Cocoyashi! La oficial de alto rango de Arlong",tp:"canon",arc:"Arlong Park",start:"2:05"},
+  {n:33,t:"¡¿Usopp va a morir?! ¿Luffy aún no llega a tierra firme?",tp:"canon",arc:"Arlong Park",start:"2:32"},
+  {n:34,t:"¡Todos reunidos! Usopp cuenta la verdad sobre Nami",tp:"canon",arc:"Arlong Park",start:"3:06"},
+  {n:35,t:"¡El pasado oculto! ¡La mujer guerrera, Bellemere!",tp:"canon",arc:"Arlong Park",start:"3:15"},
+  {n:36,t:"¡Sobrevive! ¡El vínculo entre Nami y su madre Bellemere!",tp:"canon",arc:"Arlong Park",start:"2:05"},
+  {n:37,t:"¡Luffy planta cara! ¡El resultado de la promesa rota!",tp:"canon",arc:"Arlong Park",start:"4:02"},
+  {n:38,t:"¡Luffy está en aprietos! Los gyojin contra la tripulación pirata de Luffy",tp:"canon",arc:"Arlong Park",start:"3:17"},
+  {n:39,t:"¡Luffy sumergido! Zoro contra el pulpo Hatchan",tp:"canon",arc:"Arlong Park",start:"3:25"},
+  {n:40,t:"¡Guerreros orgullosos! Las duras batallas de Sanji y Usopp",tp:"canon",arc:"Arlong Park",start:"3:15"},
+  {n:41,t:"¡Luffy a toda marcha! La determinación de Nami y el sombrero de paja",tp:"canon",arc:"Arlong Park",start:"4:27"},
+  {n:42,t:"¡Explosión! ¡El violento ataque desde el mar de Arlong!",tp:"canon",arc:"Arlong Park",start:"3:45"},
+  {n:43,t:"¡El fin del Imperio Gyojin! ¡Nami es mi compañera de tripulación!",tp:"canon",arc:"Arlong Park",start:"3:50"},
+  {n:44,t:"¡Saliendo de viaje con una sonrisa! Adiós, mi pueblo natal, la aldea Cocoyashi",tp:"canon",arc:"Arlong Park",start:"3:09"},
+  {n:45,t:"¡Una recompensa! Sombrero de Paja Luffy se hace conocido en todo el mundo",tp:"canon",arc:"Arlong Park",start:"2:05"},
+  {n:46,t:"¡Persigue a Sombrero de Paja! La gran aventura del pequeño Buggy",tp:"canon",arc:"Aventuras de Buggy",start:"2:05"},
+  {n:47,t:"¡La espera ha terminado! ¡El capitán Buggy regresa!",tp:"canon",arc:"Aventuras de Buggy",start:"2:53"},
+  {n:48,t:"La ciudad del inicio y del fin – Desembarque en Loguetown",tp:"canon",arc:"Loguetown",start:"2:05"},
+  {n:49,t:"¡Kitetsu III y Yubashiri! Las nuevas espadas de Zoro y la sargento mayor",tp:"canon",arc:"Loguetown",start:"3:35"},
+  {n:50,t:"Usopp contra Daddy, el Papá. Duelo en pleno día",tp:"canon",arc:"Loguetown",start:"2:52"},
+  {n:51,t:"¿Ardiente batalla culinaria? Sanji contra la bella chef",tp:"canon",arc:"Loguetown",start:"2:05"},
+  {n:52,t:"¡La venganza de Buggy! ¡El hombre que sonríe en la plataforma de ejecución!",tp:"canon",arc:"Loguetown",start:"3:05"},
+  {n:53,t:"¡La leyenda ha empezado! Vamos rumbo al Grand Line",tp:"canon",arc:"Loguetown",start:"2:58"},
+  {n:54,t:"¡La premonición de una nueva aventura! La misteriosa niña, Apis",tp:"filler",arc:"Warship Island",start:"2:43"},
+  {n:55,t:"¡La criatura milagrosa! El secreto de Apis y la isla legendaria",tp:"mixed",arc:"Warship Island",start:"2:40",note:"Solo ver del minuto 2:40 hasta 7:30 (Netflix/Crunchyroll HD: 2:55 al 7:45). Nami explica qué es la Calm Belt."},
+  {n:56,t:"¡El ataque de Eric! ¡Gran escape de la Isla Barco de Guerra!",tp:"filler",arc:"Warship Island",start:"3:09"},
+  {n:57,t:"¡La solitaria isla en el lejano mar! La legendaria Isla Perdida",tp:"filler",arc:"Warship Island",start:"2:45"},
+  {n:58,t:"¡Enfrentamiento en las ruinas! ¡Un tenso Zoro contra Eric!",tp:"filler",arc:"Warship Island",start:"3:39"},
+  {n:59,t:"¡Luffy está completamente rodeado! La estrategia secreta del comodoro Nelson",tp:"filler",arc:"Warship Island",start:"3:12"},
+  {n:60,t:"¡Aquellos que vuelan por el cielo! ¡La leyenda milenaria revive!",tp:"filler",arc:"Warship Island",start:"2:44"},
+  {n:61,t:"¡Una furiosa batalla final! ¡Atravesemos el Red Line!",tp:"mixed",arc:"Warship Island",start:"13:09",note:"Ver desde 13:09 hasta el final (Netflix: 13:09, Crunchyroll HD: 13:23 hasta el final)."},
+]},
+{id:2, name:"T2: Grand Line", range:"062-077", eps:[
+  {n:62,t:"¿La primera fortaleza? Aparece Laboon, la ballena gigante",tp:"canon",arc:"Reverse Mountain",start:"3:31"},
+  {n:63,t:"¡Una promesa entre hombres! Luffy y la ballena prometen verse de nuevo",tp:"canon",arc:"Reverse Mountain",start:"2:13"},
+  {n:64,t:"¿Una ciudad que recibe a los piratas? Llegada a Whisky Peak",tp:"canon",arc:"Whiskey Peak",start:"2:10"},
+  {n:65,t:"¡El Santouryuu explota! ¡Zoro contra Baroque Works!",tp:"canon",arc:"Whiskey Peak",start:"3:46"},
+  {n:66,t:"¡Batalla en serio! Luffy contra Zoro. ¡Un misterioso duelo!",tp:"canon",arc:"Whiskey Peak",start:"3:25"},
+  {n:67,t:"¡Lleven a la princesa Vivi! ¡La tripulación pirata de Luffy zarpa!",tp:"canon",arc:"Whiskey Peak",start:"2:05"},
+  {n:68,t:"¡Ánimo, Coby! El diario de los esfuerzos de Coby-Meppo en la Marina",tp:"canon",arc:"Diario de Koby-Meppo",start:"2:05"},
+  {n:69,t:"¡La determinación de Coby-Meppo! El cariño paterno del vicealmirante Garp",tp:"canon",arc:"Diario de Koby-Meppo",start:"2:05"},
+  {n:70,t:"¡Una antigua isla! ¡Una sombra que acecha en Little Garden!",tp:"canon",arc:"Little Garden",start:"2:05"},
+  {n:71,t:"¡Un duelo gigante! Los gigantes Dorry y Broggy",tp:"canon",arc:"Little Garden",start:"2:05"},
+  {n:72,t:"¡Luffy se enfada! ¡Una sucia trampa arruina el duelo sagrado!",tp:"canon",arc:"Little Garden",start:"2:05"},
+  {n:73,t:"¡Las amargas lágrimas de la victoria de Broggy! La conclusión de Elbaf",tp:"canon",arc:"Little Garden",start:"3:02"},
+  {n:74,t:"¡La vela diabólica! Lágrimas de remordimiento y lágrimas de ira",tp:"canon",arc:"Little Garden",start:"3:17"},
+  {n:75,t:"¡Cae un maleficio sobre Luffy! Colors Trap",tp:"canon",arc:"Little Garden",start:"3:29"},
+  {n:76,t:"¡Hora de contraatacar! ¡La rápida idea de Usopp y su Kaen Boshi!",tp:"canon",arc:"Little Garden",start:"5:17"},
+  {n:77,t:"¡Adiós, isla de los gigantes! Rumbo a Alabasta",tp:"canon",arc:"Little Garden",start:"2:42"},
+]},
+{id:3, name:"T3: Chopper — Isla de Invierno", range:"078-092", eps:[
+  {n:78,t:"¿Nami está enferma? ¡Más allá de la nieve que cae sobre el mar!",tp:"canon",arc:"Drum Island",start:"2:32"},
+  {n:79,t:"¡Asedio! El Bliking y Wapol el Blik",tp:"canon",arc:"Drum Island",start:"3:56"},
+  {n:80,t:"¿Una isla sin médicos? ¡Una aventura en un lugar sin nombre!",tp:"canon",arc:"Drum Island",start:"3:26"},
+  {n:81,t:"¿Eres feliz? ¡La médica a la que llaman «bruja»!",tp:"canon",arc:"Drum Island",start:"2:55"},
+  {n:82,t:"¡La determinación de Dalton! El equipo de Wapol llega a tierra firme",tp:"canon",arc:"Drum Island",start:"3:32"},
+  {n:83,t:"¡La isla donde vive la nieve! ¡Escala las Drum Rockies!",tp:"canon",arc:"Drum Island",start:"2:53"},
+  {n:84,t:"¡El reno de la nariz azul! El secreto de Chopper",tp:"canon",arc:"Drum Island",start:"2:33"},
+  {n:85,t:"¡El sueño de un marginado! ¡Hiruluk el Matasanos!",tp:"canon",arc:"Drum Island",start:"2:05"},
+  {n:86,t:"¡Los cerezos de Hiruluk y la voluntad que se transmite!",tp:"canon",arc:"Drum Island",start:"2:05"},
+  {n:87,t:"¡Contra el ejército de Wapol! ¡El poder de la fruta Baku Baku!",tp:"canon",arc:"Drum Island",start:"2:44"},
+  {n:88,t:"¡La Fruta del Diablo de tipo Zoan! Las siete transformaciones de Chopper",tp:"canon",arc:"Drum Island",start:"3:58"},
+  {n:89,t:"¡Cuando termina el control del reino! La bandera de la fe vuela eternamente",tp:"canon",arc:"Drum Island",start:"2:39"},
+  {n:90,t:"¡Los cerezos de Hiruluk! Milagro en Drum Rockies",tp:"canon",arc:"Drum Island",start:"2:05"},
+  {n:91,t:"¡Adiós, isla de Drum! ¡Me voy a hacer a la mar!",tp:"canon",arc:"Drum Island",start:"2:15"},
+  {n:92,t:"El héroe de Alabasta y la bailarina del barco",tp:"canon",arc:"Llegada a Arabasta",start:"2:05"},
+]},
+{id:4, name:"T4: Arabasta", range:"093-130", eps:[
+  {n:93,t:"¡Hacia el reino desértico! El polvo que provoca la lluvia y el ejército rebelde",tp:"canon",arc:"Llegada a Arabasta",start:"2:05"},
+  {n:94,t:"¡La reunión de los héroes! Su nombre es Puño de Fuego Ace",tp:"canon",arc:"Llegada a Arabasta",start:"2:55"},
+  {n:95,t:"¡Ace y Luffy! Ardientes emociones y vínculos fraternales",tp:"canon",arc:"Llegada a Arabasta",start:"2:44"},
+  {n:96,t:"¡La ciudad verde, Erumalu, y los Kung Fu Dugongs!",tp:"canon",arc:"Llegada a Arabasta",start:"2:45"},
+  {n:97,t:"¡Aventura en el país de la arena! Los monstruos que viven en la tierra abrasadora",tp:"canon",arc:"Llegada a Arabasta",start:"2:42"},
+  {n:98,t:"¡Llegan los Piratas del Desierto! Los hombres que viven libremente",tp:"filler",arc:"Llegada a Arabasta",start:"2:37"},
+  {n:99,t:"¡Una fortaleza falsa! ¡Camu, el soldado rebelde de corazón!",tp:"filler",arc:"Llegada a Arabasta",start:"2:28"},
+  {n:100,t:"¡Koza, el guerrero rebelde! ¡El sueño que le prometió a Vivi!",tp:"canon",arc:"Llegada a Arabasta",start:"2:36"},
+  {n:101,t:"¡Enfrentamiento en una neblina de calor! Ace contra Scorpion, el valiente",tp:"mixed",arc:"Llegada a Arabasta",start:"20:35",note:"Solo ver el final, desde el minuto 20:35 hasta el final (Netflix: 20:35, Crunchyroll HD: 20:50). Despedida de Ace."},
+  {n:102,t:"¡Ruinas y gente perdida! Vivi, sus amigos y la forma del país",tp:"filler",arc:"Llegada a Arabasta",start:"2:36"},
+  {n:103,t:"En el Spiders Café a las ocho en punto. Se reúnen los líderes del enemigo",tp:"canon",arc:"Arabasta",start:"2:45"},
+  {n:104,t:"¡Luffy contra Vivi! Los compañeros prometen que arriesgarán sus vidas",tp:"canon",arc:"Arabasta",start:"2:42"},
+  {n:105,t:"¡El frente de Alabasta! Rainbase, la ciudad de los sueños",tp:"canon",arc:"Arabasta",start:"3:05"},
+  {n:106,t:"¡La trampa de la derrota segura! Asalto a Raindinners",tp:"canon",arc:"Arabasta",start:"3:07"},
+  {n:107,t:"¡Comienza la Operación Utopía! El desconcierto se aviva",tp:"canon",arc:"Arabasta",start:"2:40"},
+  {n:108,t:"El temible bananadrilo y Mr. Prince",tp:"canon",arc:"Arabasta",start:"3:05"},
+  {n:109,t:"¡La llave del gran escape! ¡La Doru Doru Ball!",tp:"canon",arc:"Arabasta",start:"3:27"},
+  {n:110,t:"¡Un despiadado combate a muerte! Luffy contra Crocodile",tp:"canon",arc:"Arabasta",start:"2:46"},
+  {n:111,t:"¡Una carrera para lograr el milagro! El reino animal de Alabasta",tp:"canon",arc:"Arabasta",start:"2:56"},
+  {n:112,t:"¡El ejército rebelde contra el ejército real! ¡Enfrentamiento en Alubarna!",tp:"canon",arc:"Arabasta",start:"4:06"},
+  {n:113,t:"¡Alubarna se lamenta! ¡El fiero capitán Karoo!",tp:"canon",arc:"Arabasta",start:"3:12"},
+  {n:114,t:"¡El juramento del sueño de un compañero! La batalla de la madriguera",tp:"canon",arc:"Arabasta",start:"3:17"},
+  {n:115,t:"¡Hoy es el día del estreno! ¡El montaje Mane Mane!",tp:"canon",arc:"Arabasta",start:"3:09"},
+  {n:116,t:"¡Transformado en Nami! El Ballet Kenpo de Bon Clay",tp:"canon",arc:"Arabasta",start:"2:54"},
+  {n:117,t:"¡El Aviso de Ciclones de Nami! Explota el Clima Takt",tp:"canon",arc:"Arabasta",start:"3:01"},
+  {n:118,t:"¡El secreto de la familia real! Pluton, el arma de la antigüedad",tp:"canon",arc:"Arabasta",start:"2:52"},
+  {n:119,t:"¡El secreto de la poderosa esgrima! La capacidad de cortar el acero",tp:"canon",arc:"Arabasta",start:"4:40"},
+  {n:120,t:"¡Terminó la batalla! Koza levanta la bandera blanca",tp:"canon",arc:"Arabasta",start:"2:50"},
+  {n:121,t:"¡El destino de la voz de Vivi! ¡El héroe desciende!",tp:"canon",arc:"Arabasta",start:"3:47"},
+  {n:122,t:"¡El cocodrilo de arena contra el Luffy de agua! El segundo asalto del duelo",tp:"canon",arc:"Arabasta",start:"3:07"},
+  {n:123,t:"¡Es cocodrilesco! ¡Luffy, corre hacia la tumba real!",tp:"canon",arc:"Arabasta",start:"4:10"},
+  {n:124,t:"¡La pesadilla se acerca! Esta es la base del Clan Suna Suna",tp:"canon",arc:"Arabasta",start:"3:15"},
+  {n:125,t:"¡Unas maravillosas alas! Soy Pell, el dios guardián del país",tp:"canon",arc:"Arabasta",start:"3:31"},
+  {n:126,t:"¡Te superaré! ¡Cae la lluvia en Alabasta!",tp:"canon",arc:"Arabasta",start:"3:40"},
+  {n:127,t:"¡Adiós a las armas! Los piratas y las diferentes ideas de justicia",tp:"canon",arc:"Arabasta",start:"3:04"},
+  {n:128,t:"¡El banquete de los piratas y la operación de huida de Alabasta!",tp:"canon",arc:"Post-Arabasta",start:"2:05"},
+  {n:129,t:"¡Comenzó aquel día! ¡Vivi cuenta la historia de su aventura!",tp:"canon",arc:"Post-Arabasta",start:"2:22"},
+  {n:130,t:"¡El aroma del peligro! ¡El séptimo miembro es Nico Robin!",tp:"canon",arc:"Post-Arabasta",start:"2:48"},
+]},
+{id:5, name:"T5: Relleno Puro (SALTAR)", range:"131-143", eps:[
+  {n:131,t:"¡El primer paciente! La historia no revelada de la Rumble Ball",tp:"filler",arc:"Post-Arabasta",start:"2:05"},
+  {n:132,t:"¡El levantamiento de la navegadora! ¡Por el sueño firme!",tp:"filler",arc:"Post-Arabasta",start:"2:05"},
+  {n:133,t:"¡Una receta heredada! Sanji, el hombre de hierro del curry",tp:"filler",arc:"Post-Arabasta",start:"2:05"},
+  {n:134,t:"¡Haré que florezca! Usopp el Hombre y el cohete de dos metros",tp:"filler",arc:"Post-Arabasta",start:"2:05"},
+  {n:135,t:"¡El afamado cazador de piratas! Zoro, el espadachín errante",tp:"filler",arc:"Post-Arabasta",start:"2:05"},
+  {n:136,t:"¡Zenny de la Isla de las Cabras y el barco pirata dentro de la montaña!",tp:"filler",arc:"Goat Island",start:"2:05"},
+  {n:137,t:"¿Cómo haces el dinero? ¡La ambición del prestamista Zenny!",tp:"filler",arc:"Goat Island",start:"2:14"},
+  {n:138,t:"¡La ubicación del tesoro de la isla! ¡Los piratas de Zenny salen al ataque!",tp:"filler",arc:"Goat Island",start:"2:33"},
+  {n:139,t:"¡La leyenda de la Niebla Arcoíris! El viejo Henzo de la Isla Luluka",tp:"filler",arc:"Ruluka Island",start:"2:05"},
+  {n:140,t:"¡Los habitantes de la tierra eterna! ¡Los piratas Pumpkin!",tp:"filler",arc:"Ruluka Island",start:"2:55"},
+  {n:141,t:"¡Los recuerdos del hogar! ¡El cementerio de piratas sin escapatoria!",tp:"filler",arc:"Ruluka Island",start:"2:05"},
+  {n:142,t:"¡Una trifulca inevitable! Los planes de Wetton y la Torre Arcoíris",tp:"filler",arc:"Ruluka Island",start:"2:05"},
+  {n:143,t:"¡Y así, empieza la leyenda! Vamos hacia el otro lado del arcoíris",tp:"filler",arc:"Ruluka Island",start:"2:05"},
+]},
+{id:6, name:"T6: Skypiea — Isla del Cielo", range:"144-195", eps:[
+  {n:144,t:"¡El Log robado! ¡El rey de los salvamentos, Masira!",tp:"canon",arc:"Jaya",start:"2:05"},
+  {n:145,t:"¡Aparecen los monstruos! No le hagan nada a la tripulación de Barbablanca",tp:"canon",arc:"Jaya",start:"2:42"},
+  {n:146,t:"¡No sueñes! ¡Mock Town, la ciudad del ridículo!",tp:"canon",arc:"Jaya",start:"2:05"},
+  {n:147,t:"¡Piratas de primera! El hombre que habla de sueños y el rey de la búsqueda submarina",tp:"canon",arc:"Jaya",start:"2:55"},
+  {n:148,t:"¡La familia legendaria! Noland el Mentiroso",tp:"canon",arc:"Jaya",start:"2:56"},
+  {n:149,t:"¡Rumbo a las nubes! ¡Capturen el South Bird!",tp:"canon",arc:"Jaya",start:"2:05"},
+  {n:150,t:"¡¿Los sueños no se vuelven realidad?! Bellamy contra la Alianza Saruyama",tp:"canon",arc:"Jaya",start:"3:27"},
+  {n:151,t:"¡El hombre de los 100 millones! El mayor poder del mundo y el pirata Barbanegra",tp:"canon",arc:"Jaya",start:"2:05"},
+  {n:152,t:"¡El barco transita el cielo! Súbanse a la Knock-Up Stream",tp:"canon",arc:"Jaya",start:"3:05"},
+  {n:153,t:"¡Este es el océano del cielo! El caballero del cielo y la puerta de los cielos",tp:"canon",arc:"Skypiea",start:"2:43"},
+  {n:154,t:"¡El país de Dios, Skypiea! Ángeles en una playa de nubes",tp:"canon",arc:"Skypiea",start:"2:05"},
+  {n:155,t:"¡La tierra prohibida! ¡La isla en la que vive Dios y el Juicio del Cielo!",tp:"canon",arc:"Skypiea",start:"3:45"},
+  {n:156,t:"¡¿Ya somos criminales?! Los defensores de la ley de Skypiea",tp:"canon",arc:"Skypiea",start:"3:15"},
+  {n:157,t:"¡¿Es posible escapar?! ¡La Prueba de Dios se pone en marcha!",tp:"canon",arc:"Skypiea",start:"3:09"},
+  {n:158,t:"¡Una trampa en la calle Lovely! El todopoderoso Enel",tp:"canon",arc:"Skypiea",start:"2:57"},
+  {n:159,t:"¡Avanza, Cuervo! Hacia el altar de sacrificios",tp:"canon",arc:"Skypiea",start:"3:52"},
+  {n:160,t:"¡10 % de probabilidad de supervivencia! ¡Satori, el sacerdote usuario del mantra!",tp:"canon",arc:"Skypiea",start:"3:05"},
+  {n:161,t:"¡La amenaza de la Prueba de las Esferas! Batalla a muerte en el Bosque de las Ilusiones",tp:"canon",arc:"Skypiea",start:"3:29"},
+  {n:162,t:"¡Chopper está en peligro! El antiguo Dios contra el sacerdote Shura",tp:"canon",arc:"Skypiea",start:"3:10"},
+  {n:163,t:"¡Un gran misterio! ¡¿La Prueba de la Cuerda y la Prueba del Amor?!",tp:"canon",arc:"Skypiea",start:"3:43"},
+  {n:164,t:"¡Enciendan el fuego de Shandora! Wyper el Guerrero",tp:"canon",arc:"Skypiea",start:"2:59"},
+  {n:165,t:"¡Jaya, la ciudad de oro en el cielo! ¡Hacia el Templo de Dios!",tp:"canon",arc:"Skypiea",start:"3:53"},
+  {n:166,t:"¡Festival la noche antes de buscar el oro! ¡Sentimientos por Vearth!",tp:"canon",arc:"Skypiea",start:"3:08"},
+  {n:167,t:"¡Aparece el dios Enel! Alborada a los supervivientes",tp:"canon",arc:"Skypiea",start:"3:35"},
+  {n:168,t:"¡Una serpiente gigante muestra sus colmillos! Empieza el juego de supervivencia",tp:"canon",arc:"Skypiea",start:"3:28"},
+  {n:169,t:"¡El Reject mortal! La determinación del Demonio Guerrero Wyper",tp:"canon",arc:"Skypiea — Campana Dorada",start:"3:33"},
+  {n:170,t:"¡Pelea intensa en el aire! El pirata Zoro contra el guerrero Braham",tp:"canon",arc:"Skypiea — Campana Dorada",start:"4:53"},
+  {n:171,t:"¡La bazuca ardiente que ruge! Luffy contra el Demonio Guerrero Wyper",tp:"canon",arc:"Skypiea — Campana Dorada",start:"3:26"},
+  {n:172,t:"¡La Prueba del Pantano! ¡Chopper contra el sacerdote Gedatsu!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"3:23"},
+  {n:173,t:"¡La habilidad invencible! Se revela la verdadera forma de Enel",tp:"canon",arc:"Skypiea — Campana Dorada",start:"3:50"},
+  {n:174,t:"¡La capital legendaria! ¡Las grandiosas ruinas de Shandora!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"2:59"},
+  {n:175,t:"¡Probabilidad de supervivencia: 0 %! Chopper contra el sacerdote Ohm",tp:"canon",arc:"Skypiea — Campana Dorada",start:"3:05"},
+  {n:176,t:"¡Escala la Giant Jack! Combate a muerte en las ruinas superiores",tp:"canon",arc:"Skypiea — Campana Dorada",start:"4:12"},
+  {n:177,t:"¡La verdadera Prueba de Hierro! ¡Duelo a muerte entre las púas blancas!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"2:58"},
+  {n:178,t:"¡Un corte lleno de energía! ¡Zoro contra el sacerdote Ohm!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"2:53"},
+  {n:179,t:"¡Las ruinas superiores se derrumban! ¡El quinteto para el final!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"3:30"},
+  {n:180,t:"¡Enfrentamiento en las ruinas antiguas! ¡El objetivo del dios Enel!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"2:42"},
+  {n:181,t:"El anhelo de Fairy Vearth ¡El Arca Maxim!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"4:21"},
+  {n:182,t:"¡Al fin se enfrentan! ¡El pirata Luffy contra el dios Enel!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"3:28"},
+  {n:183,t:"¡Maxim se asoma! ¡Se activa Deathpiea!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"4:07"},
+  {n:184,t:"¡Luffy se cae! ¡El juicio de Dios y el deseo de Nami!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"3:59"},
+  {n:185,t:"¡Los dos que despertaron! ¡Un ardiente rescate del amor!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"3:36"},
+  {n:186,t:"Capriccio para la desesperación ¡La inminente destrucción de las islas del cielo!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"4:22"},
+  {n:187,t:"¡Guiado por una campanada! La historia del Gran Guerrero y el explorador",tp:"canon",arc:"Skypiea — Campana Dorada",start:"3:33"},
+  {n:188,t:"¡Liberados del hechizo! ¡Las lágrimas del Gran Guerrero!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"2:05"},
+  {n:189,t:"¡Amigos para siempre! ¡La campana del juramento resuena a través del poderoso mar!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"2:05"},
+  {n:190,t:"¡Isla Ángel arrasada! ¡El horror del advenimiento de Raigo!",tp:"canon",arc:"Skypiea — Campana Dorada",start:"3:54"},
+  {n:191,t:"¡Derriben la Giant Jack! La última esperanza de huida",tp:"canon",arc:"Skypiea — Campana Dorada",start:"3:08"},
+  {n:192,t:"¡Un milagro en la tierra de Dios! La canción de amor que llegó a los ángeles",tp:"canon",arc:"Skypiea — Campana Dorada",start:"4:26"},
+  {n:193,t:"¡El final de la batalla! La orgullosa fantasía resuena a lo lejos",tp:"canon",arc:"Skypiea — Campana Dorada",start:"3:47"},
+  {n:194,t:"¡Llegué hasta aquí! La historia que cuenta el Poneglyph",tp:"canon",arc:"Skypiea — Campana Dorada",start:"2:55"},
+  {n:195,t:"¡Hacia el Mar Azul! Un final lleno de sentimientos",tp:"mixed",arc:"Skypiea — Campana Dorada",start:"1:50",note:"Ver desde 1:50 hasta 16:07 (Netflix: 1:50-15:53, Crunchyroll HD: 2:05-16:22). El resto es relleno de Navarone."},
+]},
+{id:7, name:"T7: Foxy & Marina (MUCHO RELLENO)", range:"196-228", eps:[
+  {n:196,t:"¡Se anuncia una situación de emergencia! ¡Se infiltró un infame barco pirata!",tp:"filler",arc:"Navarone",start:"5:09"},
+  {n:197,t:"¡Sanji el Cocinero! ¡Demostrando su valor en el comedor de la Marina!",tp:"filler",arc:"Navarone",start:"2:05"},
+  {n:198,t:"¡Zoro capturado y las cirugías de emergencia de Chopper!",tp:"filler",arc:"Navarone",start:"2:48"},
+  {n:199,t:"¡Se acerca la redada de la Marina! ¡Capturan al segundo miembro!",tp:"filler",arc:"Navarone",start:"2:32"},
+  {n:200,t:"¡Luffy y Sanji están decididos! ¡El gran plan de rescate!",tp:"filler",arc:"Navarone",start:"2:34"},
+  {n:201,t:"¡Aparecen las impulsivas fuerzas especiales! ¡Batalla en el puente!",tp:"filler",arc:"Navarone",start:"2:05"},
+  {n:202,t:"¡Atraviesen el asedio! Recuperen el Going Merry",tp:"filler",arc:"Navarone",start:"3:01"},
+  {n:203,t:"¡El barco pirata desaparecido! Segundo asalto de la batalla en la fortaleza",tp:"mixed",arc:"Navarone",start:"13:20",note:"Ver desde 13:20 hasta 19:43 (Netflix: 13:04-19:28, Crunchyroll HD: 13:39-19:43). Conversación sobre reparar el Going Merry."},
+  {n:204,t:"¡Los planes para recuperar el oro y el waver!",tp:"filler",arc:"Navarone",start:"2:05"},
+  {n:205,t:"¡El plan para capturar a todos juntos! La táctica secreta de Jonathan",tp:"filler",arc:"Navarone",start:"2:05"},
+  {n:206,t:"¡Adiós, fortaleza de la Marina! La última batalla por la huida",tp:"filler",arc:"Navarone",start:"2:05"},
+  {n:207,t:"¡Gran aventura en Long Ring Long Land!",tp:"canon",arc:"Long Ring Long Land",start:"2:23"},
+  {n:208,t:"¡Un Davy Back contra los piratas Foxy!",tp:"canon",arc:"Long Ring Long Land",start:"2:50"},
+  {n:209,t:"¡Primer asalto! Una vuelta de la Donut Race",tp:"canon",arc:"Long Ring Long Land",start:"2:05"},
+  {n:210,t:"Zorro Plateado Foxy! La Obstrucción Despiadada",tp:"canon",arc:"Long Ring Long Land",start:"2:26"},
+  {n:211,t:"¡Segunda ronda! Irrumpan en el Groggy Ring",tp:"canon",arc:"Long Ring Long Land",start:"2:48"},
+  {n:212,t:"¡Un aluvión de tarjetas rojas en el Groggy Ring!",tp:"canon",arc:"Long Ring Long Land",start:"3:31"},
+  {n:213,t:"¡Tercera ronda! ¡El Roller Race giratorio!",tp:"filler",arc:"Long Ring Long Land",start:"3:47"},
+  {n:214,t:"¡Una carrera apasionante! ¡Vamos a la ronda final!",tp:"filler",arc:"Long Ring Long Land",start:"3:41"},
+  {n:215,t:"¡Un apasionante bombardeo! ¡El balón prisionero pirata!",tp:"filler",arc:"Long Ring Long Land",start:"2:05"},
+  {n:216,t:"¡Enfrentamiento en la colina! ¡El Escondite Inglés!",tp:"filler",arc:"Long Ring Long Land",start:"2:48"},
+  {n:217,t:"¡Se enfrentan los capitanes! ¡El combate de la última ronda!",tp:"canon",arc:"Long Ring Long Land",start:"2:29"},
+  {n:218,t:"Un violento ataque masivo ralentizado contra Luffy el invencible",tp:"canon",arc:"Long Ring Long Land",start:"3:49"},
+  {n:219,t:"¡Un combate épico y apasionante! La fatídica conclusión",tp:"canon",arc:"Long Ring Long Land",start:"2:46"},
+  {n:220,t:"¿Estaba perdido? ¿Robado? ¿Quién eres?",tp:"filler",arc:"Ocean's Dream",start:"2:05"},
+  {n:221,t:"¡Un chico misterioso con un cuerno y la deducción de Robin!",tp:"filler",arc:"Ocean's Dream",start:"3:05"},
+  {n:222,t:"¡Recuperemos nuestros recuerdos! La tripulación pirata desembarca",tp:"filler",arc:"Ocean's Dream",start:"2:05"},
+  {n:223,t:"¡La amenaza de Zoro! ¡Un animal salvaje se interpone en el camino!",tp:"filler",arc:"Ocean's Dream",start:"2:57"},
+  {n:224,t:"¡El contraataque del ladrón de recuerdos que mostró su verdadera naturaleza!",tp:"filler",arc:"Ocean's Dream",start:"3:05"},
+  {n:225,t:"¡Un hombre orgulloso! Zorro Plateado Foxy",tp:"mixed",arc:"Regreso de Foxy",start:"1:50",note:"Solo ver del 1:50 al 2:54 (Crunchyroll: 2:05-3:08, Netflix: 1:50-2:54)."},
+  {n:226,t:"¿El hombre más próximo a la invencibilidad? ¡Y el hombre más peligroso!",tp:"mixed",arc:"Regreso de Foxy",start:"14:57",note:"Ver desde 14:57 hasta el final (Crunchyroll: 15:02 hasta el final, Netflix: 14:34 hasta el final). Aparece Aokiji."},
+  {n:227,t:"¡El almirante de la Marina, Aokiji! La ferocidad de un puntal definitivo",tp:"canon",arc:"Regreso de Foxy",start:"3:10"},
+  {n:228,t:"¡Un duelo entre la goma y el hielo! Luffy contra Aokiji",tp:"canon",arc:"Regreso de Foxy",start:"3:25"},
+]},
+{id:8, name:"T8: Water Seven", range:"229-263", eps:[
+  {n:229,t:"El veloz tren marino y la ciudad del agua, Water Seven",tp:"canon",arc:"Water 7",start:"3:20"},
+  {n:230,t:"¡Aventuras en la ciudad del agua! Rumbo a la enorme planta de construcción naval",tp:"canon",arc:"Water 7",start:"3:26"},
+  {n:231,t:"La familia Franky e Iceberg-san",tp:"canon",arc:"Water 7",start:"4:03"},
+  {n:232,t:"¡Galley-La Company! Un gran espectáculo en el Muelle 1",tp:"canon",arc:"Water 7",start:"2:20"},
+  {n:233,t:"El incidente del secuestro del pirata y el barco que solo puede esperar su final",tp:"canon",arc:"Water 7",start:"3:07"},
+  {n:234,t:"¡El rescate de nuestro amigo! Asalto a la Franky House",tp:"canon",arc:"Water 7",start:"3:33"},
+  {n:235,t:"¡Gran lucha bajo la luna! ¡La bandera pirata ondea con tristeza!",tp:"canon",arc:"Water 7",start:"3:00"},
+  {n:236,t:"¡Luffy contra Usopp! La colisión del orgullo de dos hombres",tp:"canon",arc:"Water 7",start:"7:22"},
+  {n:237,t:"La ciudad del agua recibe un serio golpe! ¡Atacan a Iceberg!",tp:"canon",arc:"Water 7",start:"3:25"},
+  {n:238,t:"El humano de goma contra el cíborg que exhala fuego",tp:"canon",arc:"Water 7",start:"2:50"},
+  {n:239,t:"¿Los culpables son los Sombrero de Paja? Los protectores de la ciudad del agua",tp:"canon",arc:"Water 7",start:"0:40"},
+  {n:240,t:"¿Una despedida eterna? Nico Robin, la mujer que atrae la oscuridad",tp:"canon",arc:"Water 7",start:"1:15"},
+  {n:241,t:"¡Capturen a Robin! La determinación de los Sombrero de Paja",tp:"canon",arc:"Water 7",start:"2:27"},
+  {n:242,t:"¡El disparo del cañón es la señal! El CP9 entra en acción",tp:"canon",arc:"Water 7",start:"1:40"},
+  {n:243,t:"¡El CP9 se quita la máscara! Sus impactantes caras verdaderas",tp:"canon",arc:"Water 7",start:"1:53"},
+  {n:244,t:"¡Un vínculo secreto! Iceberg y Franky",tp:"canon",arc:"Water 7",start:"5:21"},
+  {n:245,t:"¡Vuelve, Robin! ¡Enfrentamiento contra el CP9!",tp:"canon",arc:"Water 7",start:"2:02"},
+  {n:246,t:"¿Los Sombrero de Paja son aniquilados? ¡La amenaza del Modelo Leopardo!",tp:"canon",arc:"Water 7",start:"1:40"},
+  {n:247,t:"¡El hombre que es amado incluso por su barco! ¡Las lágrimas de Usopp!",tp:"canon",arc:"Water 7",start:"1:38"},
+  {n:248,t:"¡El pasado de Franky! El día en el que arrancó el tren marino",tp:"canon",arc:"Water 7",start:"0:29"},
+  {n:249,t:"¡El plan de Spandam! El día en el que el tren marino se agitó",tp:"canon",arc:"Water 7",start:"0:48"},
+  {n:250,t:"¡El fin del hombre legendario! El día en el que lloró el tren marino",tp:"canon",arc:"Water 7",start:"3:05"},
+  {n:251,t:"¡La verdad sobre su traición! ¡La angustiosa decisión de Robin!",tp:"canon",arc:"Water 7",start:"3:23"},
+  {n:252,t:"¡El silbato separa a la fuerza a los compañeros! El tren marino echa a correr",tp:"canon",arc:"Water 7",start:"2:20"},
+  {n:253,t:"¡Sanji al rescate! ¡Combate en el tren marino en plena tormenta!",tp:"canon",arc:"Water 7",start:"1:20"},
+  {n:254,t:"¡El alma de Nami chilla! ¡Sombrero de Paja Luffy reaparece!",tp:"canon",arc:"Water 7",start:"5:25"},
+  {n:255,t:"¿Otro tren marino? ¡La salida de Rocketman!",tp:"canon",arc:"Water 7",start:"1:39"},
+  {n:256,t:"¡Al rescate de los compañeros! ¡Se crea un vínculo con los enemigos gracias a los puños!",tp:"canon",arc:"Water 7",start:"4:23"},
+  {n:257,t:"¡Destruyan la ola! Luffy y Zoro usan la combinación más poderosa",tp:"canon",arc:"Water 7",start:"2:25"},
+  {n:258,t:"¡¿Aparece un tipo misterioso?! ¡Su nombre es Sogeking!",tp:"canon",arc:"Water 7",start:"3:48"},
+  {n:259,t:"¡Lucha entre cocineros! Sanji contra el Ramen Kenpo",tp:"canon",arc:"Water 7",start:"2:33"},
+  {n:260,t:"¡Duelo en el techo! Franky contra Nero",tp:"canon",arc:"Water 7",start:"1:27"},
+  {n:261,t:"¡Confrontación! Zoro el Cortademonios contra T-Bone el Cortabarcos",tp:"canon",arc:"Water 7",start:"2:20"},
+  {n:262,t:"¡Pelea por Robin! ¡Un astuto plan de Sogeking!",tp:"canon",arc:"Water 7",start:"3:39"},
+  {n:263,t:"¡La isla judicial! ¡Una vista completa de Enies Lobby!",tp:"canon",arc:"Water 7",start:"1:12"},
+]},
+{id:9, name:"T9: Enies Lobby", range:"264-336", eps:[
+  {n:264,t:"¡Comienzan las operaciones en tierra! ¡Los Sombrero de Paja van al ataque!",tp:"canon",arc:"Enies Lobby",start:"2:55"},
+  {n:265,t:"¡Luffy se abre paso! ¡Gran enfrentamiento en la isla judicial!",tp:"canon",arc:"Enies Lobby",start:"6:15"},
+  {n:266,t:"¡Un combate contra gigantes! ¡Abran la segunda puerta!",tp:"canon",arc:"Enies Lobby",start:"5:18"},
+  {n:267,t:"¡Encuentren un modo de salir! ¡El Rocketman emprende el vuelo!",tp:"canon",arc:"Enies Lobby",start:"2:25"},
+  {n:268,t:"¡Reúnanse con Luffy! La guerra sin cuartel de los Sombrero de Paja",tp:"canon",arc:"Enies Lobby",start:"2:51"},
+  {n:269,t:"¡Traicionan a Robin! ¡Los motivos del Gobierno Mundial!",tp:"canon",arc:"Enies Lobby",start:"5:00"},
+  {n:270,t:"¡Devuélvannos a Robin! ¡Luffy contra Blueno!",tp:"canon",arc:"Enies Lobby",start:"6:27"},
+  {n:271,t:"¡No paren! ¡Den la señal para el contraataque!",tp:"canon",arc:"Enies Lobby",start:"2:38"},
+  {n:272,t:"¡Prácticamente al lado de Luffy! Reúnanse en la plaza del juzgado",tp:"canon",arc:"Enies Lobby",start:"6:49"},
+  {n:273,t:"¡Todo esto es para proteger a mis compañeros! ¡Se activa el Second Gear!",tp:"canon",arc:"Enies Lobby",start:"5:53"},
+  {n:274,t:"¡Danos una respuesta, Robin! ¡El grito de los Sombrero de Paja!",tp:"canon",arc:"Enies Lobby",start:"1:08"},
+  {n:275,t:"¡El pasado de Robin! ¡La chica a la que llamaban diablo!",tp:"canon",arc:"Enies Lobby",start:"0:29"},
+  {n:276,t:"¡Las predestinadas madre e hija! ¡El nombre de la madre es Olvia!",tp:"canon",arc:"Enies Lobby",start:"0:15"},
+  {n:277,t:"¡La tragedia de Ohara! ¡El terror de la Buster Call!",tp:"canon",arc:"Enies Lobby",start:"0:15"},
+  {n:278,t:"¡Di que quieres vivir! ¡Somos tus compañeros!",tp:"canon",arc:"Enies Lobby",start:"0:15"},
+  {n:279,t:"¡Salten hacia las cataratas! ¡Los sentimientos de Luffy!",tp:"filler",arc:"Enies Lobby",start:"4:34"},
+  {n:280,t:"¡Los caminos de los hombres! Las técnicas de Zoro y el sueño de Usopp",tp:"filler",arc:"Enies Lobby",start:"2:05"},
+  {n:281,t:"¡Un vínculo de amistad tejido con lágrimas! El mapa mundial de Nami",tp:"filler",arc:"Enies Lobby",start:"2:05"},
+  {n:282,t:"¡La despedida forja el carácter de un hombre! Sanji y Chopper",tp:"filler",arc:"Enies Lobby",start:"2:05"},
+  {n:283,t:"¡Todo esto es por sus compañeros! ¡Robin en la oscuridad!",tp:"filler",arc:"Enies Lobby",start:"2:05"},
+  {n:284,t:"¡No pienso entregar los planos! La decisión de Franky",tp:"canon",arc:"Enies Lobby",start:"7:35"},
+  {n:285,t:"¡Obtengan las cinco llaves! Los Sombrero de Paja contra el CP9",tp:"canon",arc:"Enies Lobby",start:"6:25"},
+  {n:286,t:"¡Los poderes de la Fruta del Diablo! Kaku y Jabra se transforman",tp:"canon",arc:"Enies Lobby",start:"5:05"},
+  {n:287,t:"¡No daré una patada ni aunque me cueste la vida! ¡La caballerosidad de Sanji!",tp:"canon",arc:"Enies Lobby",start:"4:08"},
+  {n:288,t:"¡El error de cálculo de Fukurou! La cola es el agua de la vida",tp:"canon",arc:"Enies Lobby",start:"4:45"},
+  {n:289,t:"¡Zoro usa una nueva técnica! ¿El nombre de la espada es Sogeking?",tp:"canon",arc:"Enies Lobby",start:"5:47"},
+  {n:290,t:"¡Incontrolable! La Rumble prohibida de Chopper",tp:"canon",arc:"Enies Lobby",start:"4:27"},
+  {n:291,t:"¡Regresa el jefe Luffy! ¿Es un sueño o realidad? ¡El alboroto de la lotería!",tp:"filler",arc:"Enies Lobby",start:"2:05"},
+  {n:292,t:"¡Una gran carrera de lanzamiento de los mochis! El plan de Nariz Roja",tp:"filler",arc:"Enies Lobby",start:"2:05"},
+  {n:293,t:"¡Kalifa, la Maestra de las Burbujas! La Trampa de Jabón acecha a Nami",tp:"canon",arc:"Enies Lobby",start:"3:25"},
+  {n:294,t:"¡Unas estridentes malas noticias! ¡Se usa la Buster Call!",tp:"canon",arc:"Enies Lobby",start:"6:03"},
+  {n:295,t:"¿Cinco Namis? ¡Nami contraataca con espejismos!",tp:"canon",arc:"Enies Lobby",start:"5:38"},
+  {n:296,t:"¡La decisión de Nami! ¡Disparen al descontrolado Chopper!",tp:"canon",arc:"Enies Lobby",start:"6:45"},
+  {n:297,t:"¿Aparece Sanji el Cazador? Una elegía para el lobo mentiroso",tp:"canon",arc:"Enies Lobby",start:"4:50"},
+  {n:298,t:"¡Patadas violentas! El menú completo de Sanji con técnicas de patadas",tp:"canon",arc:"Enies Lobby",start:"6:53"},
+  {n:299,t:"¡Violentos espadazos! Zoro contra Kaku, un duro enfrentamiento con espadas",tp:"canon",arc:"Enies Lobby",start:"5:20"},
+  {n:300,t:"¡El Dios Demoníaco Zoro! La encarnación de Asura nacida del espíritu de lucha",tp:"canon",arc:"Enies Lobby",start:"4:25"},
+  {n:301,t:"¡Spandam está aterrado! El héroe de la Torre de la Ley",tp:"canon",arc:"Enies Lobby",start:"4:20"},
+  {n:302,t:"¡Robin es libre! Luffy contra Lucci, un combate entre líderes",tp:"canon",arc:"Enies Lobby",start:"5:03"},
+  {n:303,t:"¿El culpable es el jefe Luffy? Encuentren el gran cerezo desaparecido",tp:"filler",arc:"Enies Lobby",start:"2:05"},
+  {n:304,t:"¡No podré proteger a nadie si no gano! ¡Se activa el Gear Third!",tp:"canon",arc:"Enies Lobby",start:"5:34"},
+  {n:305,t:"¡Un escalofriante pasado! La justicia oscura y Rob Lucci",tp:"canon",arc:"Enies Lobby",start:"4:21"},
+  {n:306,t:"¿Aparece una sirena mística? Mientras desaparece la consciencia…",tp:"canon",arc:"Enies Lobby",start:"5:17"},
+  {n:307,t:"¡Los cañonazos hunden la isla! El lamento de Franky",tp:"canon",arc:"Enies Lobby",start:"5:45"},
+  {n:308,t:"¡Esperen a Luffy! ¡Combate a muerte en el Puente de las Dudas!",tp:"canon",arc:"Enies Lobby",start:"5:50"},
+  {n:309,t:"¡Puños llenos de emoción! Luffy lanza su Ametralladora con todas sus fuerzas",tp:"canon",arc:"Enies Lobby",start:"4:44"},
+  {n:310,t:"¡Viene un compañero desde el mar! Los Sombrero de Paja tienen el vínculo más fuerte",tp:"canon",arc:"Enies Lobby",start:"4:55"},
+  {n:311,t:"¡Todos hacen una gran huida! El camino de la victoria es de los piratas",tp:"canon",arc:"Enies Lobby",start:"4:25"},
+  {n:312,t:"¡Gracias, Merry! Cae la nieve en el mar de la despedida",tp:"canon",arc:"Post-Enies Lobby",start:"3:28"},
+  {n:313,t:"¡La paz queda interrumpida! Un vicealmirante de la Marina con un Puño de Amor",tp:"canon",arc:"Post-Enies Lobby",start:"4:48"},
+  {n:314,t:"¿La familia más fuerte? ¡Se revela la identidad del padre de Luffy!",tp:"canon",arc:"Post-Enies Lobby",start:"4:28"},
+  {n:315,t:"¡Se llama el Nuevo Mundo! ¡El destino del Grand Line!",tp:"canon",arc:"Post-Enies Lobby",start:"3:25"},
+  {n:316,t:"¡Shanks se pone en marcha! El eje de la era descontrolada",tp:"canon",arc:"Post-Enies Lobby",start:"3:15"},
+  {n:317,t:"¡Una chica en busca de su Yagara! ¡La gran búsqueda en la ciudad del agua!",tp:"filler",arc:"Post-Enies Lobby",start:"3:12"},
+  {n:318,t:"¡Las madres son fuertes! Las frenéticas labores del hogar de Zoro",tp:"filler",arc:"Post-Enies Lobby",start:"2:42"},
+  {n:319,t:"¡El shock de Sanji! El misterioso anciano y su comida superdeliciosa",tp:"filler",arc:"Post-Enies Lobby",start:"2:42"},
+  {n:320,t:"¡Por fin hay una recompensa por todos! ¡Una tripulación que vale más de 600 millones!",tp:"canon",arc:"Post-Enies Lobby",start:"2:42"},
+  {n:321,t:"¡El Rey de la Selva que enfrenta al mar! ¡El barco de ensueño está terminado!",tp:"canon",arc:"Post-Enies Lobby",start:"5:42"},
+  {n:322,t:"¡Adiós, mis queridos subordinados! Franky se va",tp:"canon",arc:"Post-Enies Lobby",start:"2:56"},
+  {n:323,t:"¡Nos vamos de la ciudad del agua! El viril Usopp zanja el duelo",tp:"canon",arc:"Post-Enies Lobby",start:"2:43"},
+  {n:324,t:"¡Los pósters se extienden! ¡Lo celebran en sus hogares mientras el barco sigue adelante!",tp:"canon",arc:"Post-Enies Lobby",start:"3:15"},
+  {n:325,t:"¡El poder más atroz! ¡La oscuridad de Barbanegra ataca a Ace!",tp:"canon",arc:"Post-Enies Lobby",start:"3:42"},
+  {n:326,t:"¡La misteriosa banda de piratas! El Sunny y la trampa peligrosa",tp:"filler",arc:"Lovely Land",start:"5:28"},
+  {n:327,t:"¡El Sunny está en un aprieto! Ruge, robot secreto superveloz",tp:"filler",arc:"Lovely Land",start:"4:08"},
+  {n:328,t:"¡El sueño se hunde en el Nuevo Mundo! Puzzle, el pirata desilusionado",tp:"filler",arc:"Lovely Land",start:"3:58"},
+  {n:329,t:"¡Atacan los asesinos! Comienza la gran batalla sobre hielo",tp:"filler",arc:"Lovely Land",start:"4:44"},
+  {n:330,t:"¡Las batallas desesperadas de la tripulación! Sus almas de pirata están en la bandera",tp:"filler",arc:"Lovely Land",start:"4:48"},
+  {n:331,t:"¡Agobiante al máximo! La amenaza del poder magnético de los gemelos",tp:"filler",arc:"Lovely Land",start:"5:05"},
+  {n:332,t:"¡Una mansión en caos! Un líder furioso y una tripulación encerrada",tp:"filler",arc:"Lovely Land",start:"3:45"},
+  {n:333,t:"¡Regresa el Fénix! El sueño que se declaró a los compañeros ante la bandera",tp:"filler",arc:"Lovely Land",start:"3:46"},
+  {n:334,t:"¡La batalla final supertórrida! Luffy contra el Abrasador Don",tp:"filler",arc:"Lovely Land",start:"5:10"},
+  {n:335,t:"¡Esperaremos en el Nuevo Mundo! La despedida de los valientes piratas",tp:"filler",arc:"Lovely Land",start:"3:36"},
+  {n:336,t:"¡Adelante, Chopper Man! Protege la emisora de televisión de la playa",tp:"filler",arc:"Lovely Land",start:"2:45"},
+]},
+{id:10, name:"T10: Thriller Bark", range:"337-381", eps:[
+  {n:337,t:"Adentrándose en el Mar del Diablo! Un misterioso esqueleto flota en la niebla",tp:"canon",arc:"Thriller Bark",start:"3:22"},
+  {n:338,t:"¡La alegría de ver a gente! La verdadera identidad del esqueleto elegante",tp:"canon",arc:"Thriller Bark",start:"4:50"},
+  {n:339,t:"¡Un fenómeno sobrenatural tras otro! Desembarco en Thriller Bark",tp:"canon",arc:"Thriller Bark",start:"5:55"},
+  {n:340,t:"¡El hombre al que llamaban genio! ¡Hogback hace su aparición!",tp:"canon",arc:"Thriller Bark",start:"3:57"},
+  {n:341,t:"¡Nami está en un grave aprieto! La mansión zombi y el hombre invisible",tp:"canon",arc:"Thriller Bark",start:"4:34"},
+  {n:342,t:"¡El secreto de los zombis! El horripilante laboratorio de Hogback",tp:"canon",arc:"Thriller Bark",start:"5:17"},
+  {n:343,t:"¡Se llama Moria! La gran trampa del pirata que atrapa sombras",tp:"canon",arc:"Thriller Bark",start:"5:05"},
+  {n:344,t:"¡El banquete de la canción zombi! La campana del asalto es el sonido de la oscuridad",tp:"canon",arc:"Thriller Bark",start:"5:50"},
+  {n:345,t:"¿Un montón de animales? El Jardín de las Maravillas de Perona",tp:"canon",arc:"Thriller Bark",start:"6:33"},
+  {n:346,t:"¡Los Sombrero de Paja desaparecen! ¡Aparece un espadachín misterioso!",tp:"canon",arc:"Thriller Bark",start:"6:00"},
+  {n:347,t:"¡La caballerosidad permanece! El zombi traidor protege a Nami",tp:"canon",arc:"Thriller Bark",start:"6:19"},
+  {n:348,t:"¡Aparece desde el cielo! ¡Ese hombre es el Espadachín Tarareador!",tp:"canon",arc:"Thriller Bark",start:"5:43"},
+  {n:349,t:"¡La situación de emergencia de Luffy! ¡El destino de la sombra más poderosa!",tp:"canon",arc:"Thriller Bark",start:"6:04"},
+  {n:350,t:"¡El guerrero conocido como el Diablo! El momento de la resurrección de Oars",tp:"canon",arc:"Thriller Bark",start:"4:36"},
+  {n:351,t:"¡Un despertar después de 500 años! ¡Oars abre los ojos!",tp:"canon",arc:"Thriller Bark",start:"6:14"},
+  {n:352,t:"¡Una creencia por la que merece la pena vivir! Brook defiende su peinado afro",tp:"canon",arc:"Thriller Bark",start:"5:42"},
+  {n:353,t:"¡La promesa de un hombre no muere nunca! Por el amigo que espera bajo el lejano cielo",tp:"canon",arc:"Thriller Bark",start:"3:56"},
+  {n:354,t:"¡Juro que iré a verlo! Brook y el cabo de la promesa",tp:"canon",arc:"Thriller Bark",start:"6:37"},
+  {n:355,t:"¡Comida, Nami y las sombras! El furioso contraataque de Luffy",tp:"canon",arc:"Thriller Bark",start:"5:33"},
+  {n:356,t:"¿Usopp es el más fuerte? Déjenle lo negativo a él",tp:"canon",arc:"Thriller Bark",start:"5:40"},
+  {n:357,t:"¡Los generales zombis caen en un santiamén! ¡Oars quiere irse de aventura!",tp:"canon",arc:"Thriller Bark",start:"4:16"},
+  {n:358,t:"¡El Caballero Ardiente Sanji! Arruina esa boda falsa",tp:"canon",arc:"Thriller Bark",start:"4:27"},
+  {n:359,t:"¿Un destino Suke Suke? El sueño robado de Sanji",tp:"canon",arc:"Thriller Bark",start:"5:22"},
+  {n:360,t:"¡Sálvame, héroe! Mi enemiga es la princesa inmortal",tp:"canon",arc:"Thriller Bark",start:"5:32"},
+  {n:361,t:"¡Perona está aterrada! «Usopp» y «falso» tienen el mismo número de letras",tp:"canon",arc:"Thriller Bark",start:"4:28"},
+  {n:362,t:"¡Las espadas bailan en el tejado! Enfrentamiento: Zoro contra Ryuuma",tp:"canon",arc:"Thriller Bark",start:"5:30"},
+  {n:363,t:"¡Chopper está furioso! Las perversas prácticas médicas de Hogback",tp:"canon",arc:"Thriller Bark",start:"4:40"},
+  {n:364,t:"¡Oars ruge! Aparezcan, miembros de los Sombrero de Paja",tp:"canon",arc:"Thriller Bark",start:"7:00"},
+  {n:365,t:"¡El enemigo es Luffy! El zombi definitivo contra los Sombrero de Paja",tp:"canon",arc:"Thriller Bark",start:"5:44"},
+  {n:366,t:"¡Vas a morir, Absalom! ¡El ataque de rayos de la amistad de Nami!",tp:"canon",arc:"Thriller Bark",start:"4:58"},
+  {n:367,t:"¡Acaben con él! ¿Técnica Mortal: Acoplamiento de los Sombrero de Paja?",tp:"canon",arc:"Thriller Bark",start:"5:01"},
+  {n:368,t:"¡El ataque silencioso! El visitante misterioso, el Tirano Kuma",tp:"canon",arc:"Thriller Bark",start:"5:08"},
+  {n:369,t:"Oars + Moria La combinación más atroz de ingenio y fuerza",tp:"canon",arc:"Thriller Bark",start:"4:48"},
+  {n:370,t:"El plan secreto para cambiar las tornas. Nightmare Luffy hace aparición",tp:"canon",arc:"Thriller Bark",start:"4:35"},
+  {n:371,t:"Aplastan a los Sombrero de Paja. El poder Kage Kage en todo su esplendor",tp:"canon",arc:"Thriller Bark",start:"5:50"},
+  {n:372,t:"¡Comienza la espectacular batalla! Luffy contra Luffy",tp:"canon",arc:"Thriller Bark",start:"4:29"},
+  {n:373,t:"¡Se acerca el final de la batalla! Asesta el golpe de gracia",tp:"canon",arc:"Thriller Bark",start:"5:00"},
+  {n:374,t:"¡Nuestros cuerpos desaparecen! ¡El sol brilla en la isla de las pesadillas!",tp:"canon",arc:"Thriller Bark",start:"6:55"},
+  {n:375,t:"¡Aún no se acaba el peligro! Se ordena la aniquilación de los Sombrero de Paja",tp:"canon",arc:"Thriller Bark",start:"3:47"},
+  {n:376,t:"Lo repele todo. El poder Nikyu Nikyu de Kuma",tp:"canon",arc:"Thriller Bark",start:"5:27"},
+  {n:377,t:"El dolor de mis compañeros es el mío. La lucha desesperada de Zoro",tp:"canon",arc:"Thriller Bark",start:"5:36"},
+  {n:378,t:"La promesa de un lejano día. La canción de los piratas y una ballena pequeña",tp:"canon",arc:"Thriller Bark",start:"3:46"},
+  {n:379,t:"El pasado de Brook. La triste despedida de su alegre compañero",tp:"canon",arc:"Thriller Bark",start:"4:47"},
+  {n:380,t:"El vino de Binks. La canción que conecta pasado y presente",tp:"canon",arc:"Thriller Bark",start:"3:54"},
+  {n:381,t:"¡Un nuevo compañero! El músico, Brook el Tarareador",tp:"canon",arc:"Thriller Bark",start:"4:14"},
+]},
+{id:11, name:"T11: Sabaody Archipiélago", range:"382-407", eps:[
+  {n:382,t:"La amenaza ralentizadora. Regresa Zorro Plateado Foxy",tp:"filler",arc:"Spa Island",start:"2:45"},
+  {n:383,t:"La gran competición por el tesoro. Spa Island se desmorona",tp:"filler",arc:"Spa Island",start:"3:52"},
+  {n:384,t:"La gran lucha de Brook. ¿Es duro el camino para ser un verdadero compañero?",tp:"filler",arc:"Spa Island",start:"3:23"},
+  {n:385,t:"A la mitad del Grand Line. Llegada al Red Line",tp:"canon",arc:"Sabaody",start:"3:22"},
+  {n:386,t:"Odio hacia los Sombrero de Paja Se presenta Máscara de Hierro Duval",tp:"canon",arc:"Sabaody",start:"4:33"},
+  {n:387,t:"¡La reunión predestinada! Salven al gyojin cautivo",tp:"canon",arc:"Sabaody",start:"5:10"},
+  {n:388,t:"¡Una tragedia! La verdad escondida bajo la máscara de Duval",tp:"canon",arc:"Sabaody",start:"4:10"},
+  {n:389,t:"¡Se desata el poder! El arma supersecreta del Sunny, el Gaon Hou",tp:"canon",arc:"Sabaody",start:"3:54"},
+  {n:390,t:"Desembarco en el camino a la Isla Gyojin. El archipiélago Sabaody",tp:"canon",arc:"Sabaody",start:"4:04"},
+  {n:391,t:"¡Tiranía! Los gobernantes de Sabaody, los Dragones Celestiales",tp:"canon",arc:"Sabaody",start:"5:14"},
+  {n:392,t:"¡Se reúnen los nuevos rivales! Los 11 Supernova",tp:"canon",arc:"Sabaody",start:"4:42"},
+  {n:393,t:"¡El objetivo es Camie! El plan de los secuestradores que los acechan",tp:"canon",arc:"Sabaody",start:"3:57"},
+  {n:394,t:"Rescaten a Camie. La historia oscura del archipiélago",tp:"canon",arc:"Sabaody",start:"3:50"},
+  {n:395,t:"Límite de tiempo. Empieza la subasta de humanos",tp:"canon",arc:"Sabaody",start:"3:44"},
+  {n:396,t:"¡Explota el puño! Acaben con la subasta",tp:"canon",arc:"Sabaody",start:"4:04"},
+  {n:397,t:"¡Gran pánico! Duelo a muerte en la casa de subastas",tp:"canon",arc:"Sabaody",start:"5:48"},
+  {n:398,t:"¡El almirante Kizaru decide actuar! El archipiélago Sabaody se sume en el caos",tp:"canon",arc:"Sabaody",start:"4:37"},
+  {n:399,t:"¡Atraviesen el asedio! La Marina contra los tres capitanes",tp:"canon",arc:"Sabaody",start:"5:58"},
+  {n:400,t:"Roger y Rayleigh. El Rey de los Piratas y su mano derecha",tp:"canon",arc:"Sabaody",start:"3:55"},
+  {n:401,t:"¡¿No hay escapatoria?! ¡La patada a la velocidad de la luz del almirante Kizaru!",tp:"canon",arc:"Sabaody",start:"4:28"},
+  {n:402,t:"¡Apabullante! El arma de combate de la Marina, el Pacifista",tp:"canon",arc:"Sabaody",start:"6:33"},
+  {n:403,t:"Aparece un enemigo aún más poderoso! Sentomaru, el portador del hacha de guerra",tp:"canon",arc:"Sabaody",start:"6:06"},
+  {n:404,t:"El feroz ataque de Kizaru. ¡Los Sombrero de Paja enfrentan una muerte segura!",tp:"canon",arc:"Sabaody",start:"5:45"},
+  {n:405,t:"Los compañeros son eliminados. El último día de los Sombrero de Paja",tp:"canon",arc:"Sabaody",start:"4:04"},
+  {n:406,t:"Saga especial. Regresa el jefe Luffy",tp:"filler",arc:"Especial época",start:"2:45"},
+  {n:407,t:"Saga especial. Destruyan la trampa de la Compañía Thriller",tp:"filler",arc:"Especial época",start:"4:30"},
+]},
+{id:12, name:"T12: Isla de las Mujeres", range:"408-421", eps:[
+  {n:408,t:"¡Aterrizaje! La isla donde no se permiten hombres, Amazon Lily",tp:"canon",arc:"Amazon Lily",start:"5:30"},
+  {n:409,t:"Vuelve deprisa con los compañeros. La aventura en la Isla de las Doncellas",tp:"canon",arc:"Amazon Lily",start:"5:17"},
+  {n:410,t:"¡Todos se enamoran! La Emperatriz Pirata Hancock",tp:"canon",arc:"Amazon Lily",start:"3:50"},
+  {n:411,t:"El secreto que esconden en sus espaldas. Luffy y la Princesa Serpiente se encuentran",tp:"canon",arc:"Amazon Lily",start:"4:54"},
+  {n:412,t:"¡Un juicio despiadado! ¡Petrifican a Margaret!",tp:"canon",arc:"Amazon Lily",start:"4:26"},
+  {n:413,t:"¡Una pelea muy difícil para Luffy! ¡El poder del Haki de las hermanas serpiente!",tp:"canon",arc:"Amazon Lily",start:"5:46"},
+  {n:414,t:"¡Una batalla entre poderes sin cuartel! Gomu Gomu contra Hebi Hebi",tp:"canon",arc:"Amazon Lily",start:"7:05"},
+  {n:415,t:"La confesión de Hancock. El aberrante pasado de las hermanas",tp:"canon",arc:"Amazon Lily",start:"4:21"},
+  {n:416,t:"¡Salva a Ace! El nuevo destino es una gran prisión",tp:"canon",arc:"Amazon Lily",start:"3:00"},
+  {n:417,t:"¡El amor es un huracán! Hancock está enamorada",tp:"canon",arc:"Amazon Lily",start:"4:14"},
+  {n:418,t:"El paradero de los compañeros. La ciencia del clima y la Isla Mecánica",tp:"canon",arc:"Amazon Lily",start:"3:47"},
+  {n:419,t:"El paradero de los compañeros. ¡La isla de las aves gigantes y el paraíso rosado!",tp:"canon",arc:"Amazon Lily",start:"3:48"},
+  {n:420,t:"El paradero de los compañeros. El puente que une islas y las plantas que comen humanos",tp:"canon",arc:"Amazon Lily",start:"4:08"},
+  {n:421,t:"El paradero de los compañeros – La princesa negativa y el rey de los demonios",tp:"canon",arc:"Amazon Lily",start:"5:02"},
+]},
+{id:13, name:"T13: Impel Down", range:"422-456", eps:[
+  {n:422,t:"¡Una infiltración mortal! La prisión submarina, Impel Down",tp:"canon",arc:"Impel Down",start:"4:20"},
+  {n:423,t:"¡¿Una reunión en el Infierno?! ¡El usuario de la fruta Bara Bara!",tp:"canon",arc:"Impel Down",start:"6:04"},
+  {n:424,t:"¡Destruyan el Infierno Carmesí! El plan llamativo de Buggy",tp:"canon",arc:"Impel Down",start:"4:12"},
+  {n:425,t:"¡El hombre más fuerte de la prisión! Aparece Magellan, el hombre venenoso",tp:"canon",arc:"Impel Down",start:"4:07"},
+  {n:426,t:"Un especial relacionado a la película. La ambición de León Dorado se pone en marcha",tp:"filler",arc:"Little East Blue",start:"3:25"},
+  {n:427,t:"Un especial relacionado a la película. El Little East Blue está en peligro",tp:"filler",arc:"Little East Blue",start:"4:24"},
+  {n:428,t:"Un especial relacionado a la película. El violento ataque de los Piratas Amigo",tp:"filler",arc:"Little East Blue",start:"4:21"},
+  {n:429,t:"Un especial relacionado a la película. ¡Batalla final! Luffy contra Largo",tp:"filler",arc:"Little East Blue",start:"4:58"},
+  {n:430,t:"¡El Ouka Shichibukai apresado! Jinbe, el Primer Hijo del Mar",tp:"canon",arc:"Impel Down",start:"5:11"},
+  {n:431,t:"La trampa de Saldeath, el jefe de los guardias. El nivel 3, el Infierno de la Inanición",tp:"canon",arc:"Impel Down",start:"4:35"},
+  {n:432,t:"¡El cisne queda libre! La reunión con Bon Clay",tp:"canon",arc:"Impel Down",start:"4:47"},
+  {n:433,t:"El alcaide Magellan entra en acción. Se completa la trampa para Sombrero de Paja",tp:"canon",arc:"Impel Down",start:"4:11"},
+  {n:434,t:"¡Se han reunido todas las fuerzas! Batalla en el nivel 4, el Infierno del Calor Ardiente",tp:"canon",arc:"Impel Down",start:"4:57"},
+  {n:435,t:"¡El poderoso Magellan! La deserción de Bon Clay",tp:"canon",arc:"Impel Down",start:"4:28"},
+  {n:436,t:"¡La batalla decisiva! El último ataque desesperado de Luffy",tp:"canon",arc:"Impel Down",start:"6:10"},
+  {n:437,t:"Porque es mi amigo. Bon Clay arriesga la vida para rescatarlo",tp:"canon",arc:"Impel Down",start:"4:21"},
+  {n:438,t:"Un paraíso en el Infierno. El nivel 5.5 de Impel Down",tp:"canon",arc:"Impel Down",start:"4:40"},
+  {n:439,t:"Empieza el tratamiento de Luffy. ¡El milagroso poder de Ivan-san!",tp:"canon",arc:"Impel Down",start:"4:41"},
+  {n:440,t:"¡Cree en los milagros! Bon Clay grita desde el alma",tp:"canon",arc:"Impel Down",start:"3:56"},
+  {n:441,t:"¡Luffy revive! ¡Empieza el plan de fuga de Ivan-san!",tp:"canon",arc:"Impel Down",start:"4:05"},
+  {n:442,t:"Comienza la escolta de Ace. ¡Batalla en el nivel más bajo, el nivel 6!",tp:"canon",arc:"Impel Down",start:"5:02"},
+  {n:443,t:"Se forma el equipo más poderoso. Impel Down tiembla",tp:"canon",arc:"Impel Down",start:"5:28"},
+  {n:444,t:"¡Aún más caos! Llega Barbanegra Teach",tp:"canon",arc:"Impel Down",start:"4:15"},
+  {n:445,t:"¡Un encuentro peligroso! Barbanegra y Shiliew de la Lluvia",tp:"canon",arc:"Impel Down",start:"5:21"},
+  {n:446,t:"¡No caeré pase lo que pase! Hannyabal pelea en serio",tp:"canon",arc:"Impel Down",start:"3:55"},
+  {n:447,t:"Una furiosa Pistola Jet. Luffy contra Barbanegra",tp:"canon",arc:"Impel Down",start:"5:39"},
+  {n:448,t:"¡Detengan a Magellan! Explota la técnica secreta de Ivan-san",tp:"canon",arc:"Impel Down",start:"6:10"},
+  {n:449,t:"¡La gran estrategia de Magellan! El plan de fuga queda arruinado",tp:"canon",arc:"Impel Down",start:"4:35"},
+  {n:450,t:"¡El equipo de fugitivos está en problemas! La técnica prohibida: El Demonio de Veneno",tp:"canon",arc:"Impel Down",start:"4:55"},
+  {n:451,t:"Obremos un último milagro. Atravesemos las Puertas de la Justicia",tp:"canon",arc:"Impel Down",start:"5:00"},
+  {n:452,t:"Hacia el cuartel general de la Marina. ¡Zarpamos para rescatar a Ace!",tp:"canon",arc:"Impel Down",start:"4:50"},
+  {n:453,t:"El paradero de los compañeros. El informe de Weatheria",tp:"canon",arc:"Impel Down",start:"4:56"},
+  {n:454,t:"El paradero de los compañeros. El polluelo de ave gigante y un enfrentamiento rosado",tp:"canon",arc:"Impel Down",start:"3:57"},
+  {n:455,t:"El paradero de los compañeros. ¡El Ejército Revolucionario!",tp:"canon",arc:"Impel Down",start:"5:00"},
+  {n:456,t:"El paradero de los compañeros. Una tumba gigante y una deuda por ropa interior",tp:"canon",arc:"Impel Down",start:"3:46"},
+]},
+{id:14, name:"T14: Marineford", range:"457-516", note:"ARCO ÉPICO — TODO CANON", eps:[
+  {n:457,t:"Un especial de recuerdos antes de Marineford. ¡El juramento de los hermanos!",tp:"canon",arc:"Pre-Marineford",start:"3:46"},
+  {n:458,t:"Un especial de recuerdos antes de Marineford. Se reúnen los tres almirantes",tp:"canon",arc:"Pre-Marineford",start:"4:42"},
+  {n:459,t:"¡Se aproxima la batalla! ¡Se completa la alineación más poderosa de la Marina!",tp:"canon",arc:"Marineford",start:"3:55"},
+  {n:460,t:"Aparece una flota enorme. ¡Llegan los Piratas Barbablanca!",tp:"canon",arc:"Marineford",start:"4:50"},
+  {n:461,t:"¡Se levanta el telón de la guerra! El pasado de Ace y Barbablanca",tp:"canon",arc:"Marineford",start:"4:38"},
+  {n:462,t:"¡El poder que puede destruir el mundo! El poder de la fruta Gura Gura",tp:"canon",arc:"Marineford",start:"5:08"},
+  {n:463,t:"¡Lo reduce todo a cenizas! ¡El poder del almirante Akainu!",tp:"canon",arc:"Marineford",start:"4:56"},
+  {n:464,t:"¡El descendiente del demonio! ¡Little Oars Jr. avanza a toda velocidad!",tp:"canon",arc:"Marineford",start:"5:31"},
+  {n:465,t:"La justicia es de los ganadores. ¡Comienza el plan de Sengoku!",tp:"canon",arc:"Marineford",start:"4:21"},
+  {n:466,t:"Llega el equipo de Sombrero de Paja. Aumenta la tensión en el campo de batalla",tp:"canon",arc:"Marineford",start:"4:31"},
+  {n:467,t:"Te salvaré aunque me cueste la vida. Luffy contra la Marina: Comienza la batalla",tp:"canon",arc:"Marineford",start:"7:10"},
+  {n:468,t:"¡Seguidilla de batallas duras! Usuarios de Frutas del Diablo vs Frutas del Diablo",tp:"canon",arc:"Marineford",start:"4:08"},
+  {n:469,t:"La extraña transformación de Kuma. El golpe furioso de Ivan-san",tp:"canon",arc:"Marineford",start:"5:47"},
+  {n:470,t:"El gran espadachín Mihawk. La espada negra ataca a Luffy",tp:"canon",arc:"Marineford",start:"4:18"},
+  {n:471,t:"Comienza el plan de aniquilación. El poder del ejército de Pacifistas",tp:"canon",arc:"Marineford",start:"4:15"},
+  {n:472,t:"¡La conspiración de Akainu! Tienden una trampa a Barbablanca",tp:"canon",arc:"Marineford",start:"5:05"},
+  {n:473,t:"¡Se activa el muro envolvente! ¡Los Piratas Barbablanca atacan!",tp:"canon",arc:"Marineford",start:"5:53"},
+  {n:474,t:"¡Sin piedad! El poder demoledor de Whitebeard",tp:"canon",arc:"Marineford",start:"—"},
+  {n:475,t:"¡Encuentro con Ace! Barba Blanca, la decisión del padre",tp:"canon",arc:"Marineford",start:"—"},
+  {n:476,t:"El poder del Gura Gura no Mi. ¡Terremoto marino!",tp:"canon",arc:"Marineford",start:"—"},
+  {n:477,t:"¡Ace está libre! ¡La furia de los hermanos se desata!",tp:"canon",arc:"Marineford",start:"—"},
+  {n:478,t:"La muerte de Barbablanca. El fin de una era",tp:"canon",arc:"Marineford",start:"—"},
+  {n:479,t:"¡El fuego de Ace se apaga! El peor posible resultado",tp:"canon",arc:"Marineford",start:"—"},
+  {n:480,t:"¡La oscuridad de Barbanegra se cierne! Barbablanca, el hombre más fuerte",tp:"canon",arc:"Marineford",start:"—"},
+  {n:481,t:"¡Shanks llega! La guerra termina",tp:"canon",arc:"Marineford",start:"—"},
+  {n:482,t:"El mundo da la vuelta. Dos años de entrenamiento: El día que Luffy cayó",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:483,t:"El mensaje en la campana. El reencuentro con el pasado",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:484,t:"¡Un nuevo viaje comienza! La decisión de los Sombrero de Paja",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:485,t:"¡Luffy pierde su razón de ser! La terrible noticia",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:486,t:"La historia de Luffy y Ace. Los lazos de los hermanos",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:487,t:"La infancia de Luffy y Ace. El entrenamiento junto a Dadan",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:488,t:"La primera aventura de los hermanos. La banda de Dadan",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:489,t:"El camino de los piratas. Las ambiciones de Ace",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:490,t:"El 'Encuentro' con Sabo. El tercer hermano",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:491,t:"El pasado del Barco del Dragón. El origen de Sabo",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:492,t:"La tragedia de Sabo. El noble que renunció a todo",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:493,t:"El llanto de Luffy. Dos años de entrenamiento anunciados",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:494,t:"¡El pasado de Luffy sale a la luz! El vínculo entre Luffy y el Barco",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:495,t:"¡Se inicia el entrenamiento! Luffy en el Castillo de Rusukaina",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:496,t:"¡2 años después! Los destinos de los Sombrero de Paja",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:497,t:"¡Se reúnen! El encuentro en el archipiélago de Sabaody",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:498,t:"Los Sombrero de Paja regresan! El gran caos en Sabaody",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:499,t:"Luffy llega a Fishman Island en el Sunny. El reencuentro con el fondo marino",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:500,t:"La isla submarina. El sueño de gyojin",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:501,t:"Los peces dorados de la leyenda. El guía al palacio del rey",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:502,t:"El palacio de Ryugu. El rey Neptune recibe a los piratas",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:503,t:"¡Aparece Caribou! El pirata que acecha a los Sombrero de Paja",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:504,t:"Las Sirenas de Fishman Island. La princesa Shirahoshi",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:505,t:"El secreto de Shirahoshi. El hombre que puede llamar al Pez Rey",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:506,t:"¡Luffy y Shirahoshi! El valiente protector de la princesa gigante",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:507,t:"¡Madam Shyarly predice la destrucción! El pirata de sombrero de paja",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:508,t:"¡Los Piratas Arlong resurgen! El descendiente del Imperio Gyojin",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:509,t:"¡Nami en peligro! El ataque de Hody Jones",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:510,t:"¡El plan de Hody Jones! La conquista del reino del fondo marino",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:511,t:"¡Se revela el pasado oscuro! El odio de los gyojin",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:512,t:"¡El Ejército del Nuevo Gyojin va a la guerra! La batalla por el palacio",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:513,t:"¡Luffy contraataca! El poder de Haki del Conquistador",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:514,t:"¡La batalla final! Luffy contra Hody Jones en el Noah",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:515,t:"¡Luffy vence! El futuro de Fishman Island",tp:"canon",arc:"Post-Marineford",start:"—"},
+  {n:516,t:"¡La despedida! Los Sombrero de Paja parten al Nuevo Mundo",tp:"canon",arc:"Post-Marineford",start:"—"},
+]},
+{id:15, name:"T15: Isla Gyojin (517-578)", range:"517-578", eps:[
+  {n:517,t:'El comienzo de una nueva saga. Se reúnen los Sombrero de Paja',tp:'canon',arc:'Return to Sabaody',start:'0:15'},
+  {n:518,t:'¡Una situación explosiva! Luffy contra el Luffy falso',tp:'canon',arc:'Return to Sabaody',start:'4:53'},
+  {n:519,t:'La Marina se pone en marcha. Los Sombrero de Paja están en peligro',tp:'canon',arc:'Return to Sabaody',start:'3:05'},
+  {n:520,t:'Se reúnen los peces gordos. El peligro de los Sombrero de Paja falsos',tp:'canon',arc:'Return to Sabaody',start:'4:03'},
+  {n:521,t:'¡Empieza la batalla! ¡Muestra el resultado del entrenamiento!',tp:'canon',arc:'Return to Sabaody',start:'4:25'},
+  {n:522,t:'Se reúnen todos. Luffy zarpa rumbo al Nuevo Mundo',tp:'canon',arc:'Return to Sabaody',start:'4:41'},
+  {n:523,t:'Un hecho sorprendente. El hombre que protegió el Sunny',tp:'canon',arc:'Fishman Island',start:'4:12'},
+  {n:524,t:'Un combate mortal en el mar. Aparece el demonio del mar',tp:'canon',arc:'Fishman Island',start:'4:25'},
+  {n:525,t:'Perdidos en la profundidad del mar. Los Sombrero de Paja se separan',tp:'canon',arc:'Fishman Island',start:'4:37'},
+  {n:526,t:'¡Una erupción volcánica submarina! A la deriva hacia la Isla Gyojin',tp:'canon',arc:'Fishman Island',start:'4:22'},
+  {n:527,t:'Llegada a la Isla Gyojin. Las hermosas sirenas',tp:'canon',arc:'Fishman Island',start:'4:52'},
+  {n:528,t:'¡Explosión de excitación! ¡La vida de Sanji corre peligro!',tp:'canon',arc:'Fishman Island',start:'6:10'},
+  {n:529,t:'¡¿La Isla Gyojin va a ser aniquilada?! La profecía de Sharley',tp:'canon',arc:'Fishman Island',start:'4:15'},
+  {n:530,t:'El rey de la Isla Gyojin. ¡Neptune, el dios del mar!',tp:'canon',arc:'Fishman Island',start:'3:53'},
+  {n:531,t:'¡El palacio Ryugu! Los lleva el tiburón al que salvaron',tp:'canon',arc:'Fishman Island',start:'3:35'},
+  {n:532,t:'¡Una cobarde y una llorona! La princesa de la Torre Revestida',tp:'canon',arc:'Fishman Island',start:'4:42'},
+  {n:533,t:'Situación de emergencia. Ocupan el palacio Ryugu',tp:'canon',arc:'Fishman Island',start:'4:53'},
+  {n:534,t:'¡Cunde el pánico en el palacio Ryugu! El secuestro de Shirahoshi',tp:'canon',arc:'Fishman Island',start:'3:43'},
+  {n:535,t:'La arremetida de Hordy. Comienza el plan de venganza',tp:'canon',arc:'Fishman Island',start:'3:35'},
+  {n:536,t:'¡La batalla del palacio Ryugu! Zoro contra Hordy',tp:'canon',arc:'Fishman Island',start:'5:25'},
+  {n:537,t:'Protejan a Shirahoshi. Decken se aproxima',tp:'canon',arc:'Fishman Island',start:'5:10'},
+  {n:538,t:'¡¿Derrotan a los Sombrero de Paja?! Hordy se apodera del palacio Ryugu',tp:'canon',arc:'Fishman Island',start:'5:10'},
+  {n:539,t:'¡Los vínculos persistentes! ¡Nami y los Piratas Gyojin!',tp:'canon',arc:'Fishman Island',start:'4:25'},
+  {n:540,t:'Un héroe que salva a los esclavos. Tiger el Aventurero',tp:'canon',arc:'Fishman Island',start:'4:21'},
+  {n:541,t:'¡Aparece Kizaru! ¡Una trampa para atrapar a Tiger!',tp:'canon',arc:'Fishman Island',start:'4:10'},
+  {n:542,t:'¡La formación de un equipo! Salven a Chopper',tp:'filler',arc:'Fishman Island',start:'3:25'},
+  {n:543,t:'La muerte del héroe. La impactante verdad de Tiger',tp:'canon',arc:'Fishman Island',start:'4:23'},
+  {n:544,t:'Se divide la tripulación. Jinbe contra Arlong',tp:'canon',arc:'Fishman Island',start:'4:05'},
+  {n:545,t:'¡La Isla Gyojin se tambalea! Llega un Dragón Celestial',tp:'canon',arc:'Fishman Island',start:'4:23'},
+  {n:546,t:'¡Una tragedia repentina! Un disparo acaba con el futuro',tp:'canon',arc:'Fishman Island',start:'4:23'},
+  {n:547,t:'¡Vuelta al presente! Hordy entra en acción',tp:'canon',arc:'Fishman Island',start:'3:37'},
+  {n:548,t:'El reino está en shock. Se da la orden de ejecutar a Neptune',tp:'canon',arc:'Fishman Island',start:'4:10'},
+  {n:549,t:'¡Se abre una grieta! Luffy contra Jinbe',tp:'canon',arc:'Fishman Island',start:'5:38'},
+  {n:550,t:'Le ha pasado algo a Hordy. ¡El verdadero poder de la malvada droga!',tp:'canon',arc:'Fishman Island',start:'3:44'},
+  {n:551,t:'Comienza la batalla. ¡En la Plaza Gyoncorde!',tp:'canon',arc:'Fishman Island',start:'5:10'},
+  {n:552,t:'Una confesión impactante. La verdad del asesinato de Otohime',tp:'canon',arc:'Fishman Island',start:'4:49'},
+  {n:553,t:'¡Las lágrimas de Shirahoshi! Por fin aparece Luffy',tp:'canon',arc:'Fishman Island',start:'5:40'},
+  {n:554,t:'¡Un gran enfrentamiento! Los Sombrero de Paja contra 100,000 enemigos',tp:'canon',arc:'Fishman Island',start:'3:37'},
+  {n:555,t:'¡Explotan las técnicas mortales! ¡Zoro y Sanji se unen a la contienda!',tp:'canon',arc:'Fishman Island',start:'5:39'},
+  {n:556,t:'¡Estreno! ¡Las nuevas armas secretas del Sunny!',tp:'canon',arc:'Fishman Island',start:'5:11'},
+  {n:557,t:'¡El Pirata de Hierro! Aquí viene el General Franky',tp:'canon',arc:'Fishman Island',start:'5:47'},
+  {n:558,t:'¡Se acerca el Noah! ¡La Isla Gyojin afronta su destrucción!',tp:'canon',arc:'Fishman Island',start:'4:45'},
+  {n:559,t:'¡Date prisa, Luffy! La vida de Shirahoshi corre peligro',tp:'canon',arc:'Fishman Island',start:'5:16'},
+  {n:560,t:'¡Comienza la dura pelea! ¡Luffy contra Hordy!',tp:'canon',arc:'Fishman Island',start:'5:53'},
+  {n:561,t:'¡Una pelea masiva confusa! ¡Los Sombrero de Paja contra los Nuevos Piratas Gyojin!',tp:'canon',arc:'Fishman Island',start:'4:22'},
+  {n:562,t:'¡¿Luffy pierde la pelea?! La hora de la venganza de Hordy',tp:'canon',arc:'Fishman Island',start:'4:37'},
+  {n:563,t:'¡Un hecho impactante! ¡La verdadera identidad de Hordy!',tp:'canon',arc:'Fishman Island',start:'6:20'},
+  {n:564,t:'¡Vuelta a empezar! ¡Una petición para Luffy!',tp:'canon',arc:'Fishman Island',start:'5:29'},
+  {n:565,t:'¡El ataque sin cuartel de Luffy! Explota el Red Hawk',tp:'canon',arc:'Fishman Island',start:'4:58'},
+  {n:566,t:'¡Se acerca el fin! La batalla final contra Hordy',tp:'canon',arc:'Fishman Island',start:'4:40'},
+  {n:567,t:'¡Detente, Noah! ¡La Ametralladora Elefante desesperada!',tp:'canon',arc:'Fishman Island',start:'5:30'},
+  {n:568,t:'¡Rumbo al futuro! ¡El camino que lleva al sol!',tp:'canon',arc:'Fishman Island',start:'4:25'},
+  {n:569,t:'Se revela el secreto. La verdad sobre el arma de la antigüedad',tp:'canon',arc:'Fishman Island',start:'4:09'},
+  {n:570,t:'¡Los Sombrero de Paja están impactados! ¡El nuevo almirante de flota de la Marina!',tp:'canon',arc:'Fishman Island',start:'4:18'},
+  {n:571,t:'¡Le encantan los dulces! Big Mam, de los Cuatro Emperadores',tp:'canon',arc:'Fishman Island',start:'5:19'},
+  {n:572,t:'Se avecinan muchos problemas. Les espera una trampa en el Nuevo Mundo',tp:'canon',arc:'Fishman Island',start:'4:50'},
+  {n:573,t:'¡Por fin es hora de irse! Adiós, Isla Gyojin',tp:'canon',arc:'Fishman Island',start:'4:05'},
+  {n:574,t:'¡Hacia el Nuevo Mundo! Rumbo al mar definitivo',tp:'mixed',arc:'Fishman Island',start:'4:23',note:'Ver casi todo, desde el minuto 4:23 hasta el 22:37 (Crunchyroll: 4:38 hasta 22:52).'},
+  {n:575,t:'La ambición de Z. ¡Lily, la Pequeña Gigante!',tp:'filler',arc:'Z\'s Ambition',start:'2:45'},
+  {n:576,t:'La ambición de Z. ¡Un ejército oscuro y poderoso!',tp:'filler',arc:'Z\'s Ambition',start:'4:19'},
+  {n:577,t:'La ambición de Z. ¡El gran plan de huida para el héroe!',tp:'filler',arc:'Z\'s Ambition',start:'4:54'},
+  {n:578,t:'La ambición de Z. ¡Luffy contra Shuzo!',tp:'filler',arc:'Z\'s Ambition',start:'4:52'}
+]},
+{id:16, name:"T16: Punk Hazard (579-628)", range:"579-628", eps:[
+  {n:579,t:'¡Desembarco! Una isla ardiente, Punk Hazard',tp:'canon',arc:'Punk Hazard',start:'5:22'},
+  {n:580,t:'¡Una batalla en el calor! ¡Luffy contra el dragón gigante!',tp:'canon',arc:'Punk Hazard',start:'5:35'},
+  {n:581,t:'¡La tripulación se queda perpleja! ¡El impactante samurái que solo tiene cabeza!',tp:'canon',arc:'Punk Hazard',start:'4:15'},
+  {n:582,t:'¡Asombro! Finalmente se revela el secreto de la isla',tp:'canon',arc:'Punk Hazard',start:'5:07'},
+  {n:583,t:'¡Salven a los niños! La tripulación empieza a pelear',tp:'canon',arc:'Punk Hazard',start:'4:33'},
+  {n:584,t:'Un duelo de esgrima. Brook contra el misterioso torso samurái',tp:'canon',arc:'Punk Hazard',start:'5:25'},
+  {n:585,t:'¡El Shichibukai! Trafalgar Law',tp:'canon',arc:'Punk Hazard',start:'4:12'},
+  {n:586,t:'Un gran aprieto. Luffy se hunde en el mar helado',tp:'canon',arc:'Punk Hazard',start:'5:27'},
+  {n:587,t:'¡Enfrentamiento! Law contra el vicealmirante Smoker',tp:'canon',arc:'Punk Hazard',start:'5:48'},
+  {n:588,t:'¡Reunión tras dos años! Luffy y Law',tp:'canon',arc:'Punk Hazard',start:'5:03'},
+  {n:589,t:'El peor del mundo. El Científico Terrorífico, Caesar',tp:'canon',arc:'Punk Hazard',start:'4:30'},
+  {n:590,t:'Episodio especial de transición',tp:'canon',arc:'Punk Hazard',start:'1:30'},
+  {n:591,t:'La indignación de Chopper. El experimento inhumano del amo',tp:'canon',arc:'Punk Hazard',start:'4:50'},
+  {n:592,t:'¡Aniquilen a la tripulación! ¡El ataque de los asesinos legendarios!',tp:'canon',arc:'Punk Hazard',start:'5:38'},
+  {n:593,t:'¡Salva a Nami! Luffy lucha en las montañas nevadas',tp:'canon',arc:'Punk Hazard',start:'4:58'},
+  {n:594,t:'¡Queda formada! ¡La alianza entre Luffy y Law!',tp:'canon',arc:'Punk Hazard',start:'3:53'},
+  {n:595,t:'Capturen al amo. ¡Empieza la operación de la alianza pirata!',tp:'canon',arc:'Punk Hazard',start:'3:58'},
+  {n:596,t:'Al borde de la aniquilación. Un monstruo letal llega volando',tp:'canon',arc:'Punk Hazard',start:'5:16'},
+  {n:597,t:'Una pelea intensa. ¡Caesar emplea su verdadero poder!',tp:'canon',arc:'Punk Hazard',start:'4:55'},
+  {n:598,t:'¡El samurái que puede cortar el fuego! Zorro de Fuego Kin\'emon',tp:'canon',arc:'Punk Hazard',start:'4:45'},
+  {n:599,t:'¡Impactante! ¡La verdadera identidad de Vergo, el hombre misterioso!',tp:'canon',arc:'Punk Hazard',start:'4:04'},
+  {n:600,t:'¡Protejan a los niños! Se acerca la malvada mano del amo',tp:'canon',arc:'Punk Hazard',start:'4:34'},
+  {n:601,t:'Estremeciendo al Nuevo Mundo. El espantoso experimento de Caesar',tp:'canon',arc:'Punk Hazard',start:'4:35'},
+  {n:602,t:'¡El arma de destrucción masiva más letal de la historia! Shinokuni',tp:'canon',arc:'Punk Hazard',start:'5:30'},
+  {n:603,t:'¡Empieza el contraataque! La gran huida de Luffy y Law',tp:'canon',arc:'Punk Hazard',start:'4:15'},
+  {n:604,t:'¡Vayan al edificio R! ¡El gran avance de la alianza pirata!',tp:'canon',arc:'Punk Hazard',start:'5:05'},
+  {n:605,t:'Las lágrimas de Tashigi. El desesperado plan de avance del G-5',tp:'canon',arc:'Punk Hazard',start:'5:37'},
+  {n:606,t:'¡El vicealmirante traidor! Vergo el Bambú Demoníaco',tp:'canon',arc:'Punk Hazard',start:'5:03'},
+  {n:607,t:'Una batalla ardiente. Luffy contra Caesar',tp:'canon',arc:'Punk Hazard',start:'7:04'},
+  {n:608,t:'¡La mente maestra del bajo mundo! ¡Doflamingo se pone en marcha!',tp:'canon',arc:'Punk Hazard',start:'5:40'},
+  {n:609,t:'¡¿Luffy muere congelado?! ¡Monet, la temible mujer de nieve!',tp:'canon',arc:'Punk Hazard',start:'4:19'},
+  {n:610,t:'¡Chocan los puños! Una pelea entre dos vicealmirantes',tp:'canon',arc:'Punk Hazard',start:'5:10'},
+  {n:611,t:'¡Un dragón pequeño! Aparece Momonosuke',tp:'canon',arc:'Punk Hazard',start:'4:10'},
+  {n:612,t:'Una pelea a muerte en la ventisca. Los Sombrero de Paja contra la mujer de nieve',tp:'canon',arc:'Punk Hazard',start:'4:46'},
+  {n:613,t:'¡La explosión de las técnicas! ¡El Ittouryuu más poderoso de Zoro!',tp:'canon',arc:'Punk Hazard',start:'5:23'},
+  {n:614,t:'¡Protegeré a mis amigos! Mocha arriesga su vida',tp:'canon',arc:'Punk Hazard',start:'4:45'},
+  {n:615,t:'¡La tristeza de Barbamarrón! El ataque furioso de Luffy',tp:'canon',arc:'Punk Hazard',start:'4:54'},
+  {n:616,t:'¡Una conclusión sorprendente! ¡Smoker contra Vergo!',tp:'canon',arc:'Punk Hazard',start:'4:20'},
+  {n:617,t:'¡La derrota de Caesar! La poderosa Grizzly Magnum',tp:'canon',arc:'Punk Hazard',start:'4:35'},
+  {n:618,t:'¡Un ataque! Los asesinos de Dressrosa',tp:'canon',arc:'Punk Hazard',start:'5:13'},
+  {n:619,t:'¡Gran alboroto! El invencible General Franky',tp:'canon',arc:'Punk Hazard',start:'4:35'},
+  {n:620,t:'¡Desesperación absoluta! Punk Hazard explota',tp:'canon',arc:'Punk Hazard',start:'5:22'},
+  {n:621,t:'Capturen a Caesar. Los estallidos del General Cannon',tp:'canon',arc:'Punk Hazard',start:'5:29'},
+  {n:622,t:'¡Una reunión conmovedora! Momonosuke y Kin\'emon',tp:'canon',arc:'Punk Hazard',start:'4:03'},
+  {n:623,t:'Es hora de despedirse. ¡Partiendo de Punk Hazard!',tp:'canon',arc:'Punk Hazard',start:'4:50'},
+  {n:624,t:'¡El G-5 aniquilado! ¡El ataque repentino de Doflamingo!',tp:'canon',arc:'Punk Hazard',start:'5:00'},
+  {n:625,t:'¡Intenso! ¡Aokiji contra Doflamingo!',tp:'mixed',arc:'Punk Hazard',start:'4:45',note:'Ver desde 4:45 hasta 22:22 (Crunchyroll: 5:00 hasta 22:37).'},
+  {n:626,t:'¡Caesar desaparece! ¡La alianza pirata sale!',tp:'filler',arc:'Rescate de Caesar',start:'4:15'},
+  {n:627,t:'¡¿Luffy muere en el mar?! ¡La alianza pirata se deshace!',tp:'filler',arc:'Rescate de Caesar',start:'4:30'},
+  {n:628,t:'¡Un gran giro! ¡El enfadado puño de acero de Luffy ataca!',tp:'mixed',arc:'Rescate de Caesar',start:'19:18',note:'Solo ver el final, desde el minuto 19:18 hasta el final (Crunchyroll: 19:33 hasta el final).'}
+]},
+{id:17, name:"T17: Dressrosa (629-746)", range:"629-746", eps:[
+  {n:629,t:'¡Sorpresivo! ¡Las grandes noticias sacuden al Nuevo Mundo!',tp:'canon',arc:'Dressrosa',start:'4:06'},
+  {n:630,t:'¡Aventura! ¡El reino del amor y la pasión, Dressrosa!',tp:'canon',arc:'Dressrosa',start:'3:45'},
+  {n:631,t:'¡Lleno de entusiasmo! ¡El Coliseo Corrida!',tp:'canon',arc:'Dressrosa',start:'6:06'},
+  {n:632,t:'¡Un amor peligroso! La bailarina, Violet',tp:'canon',arc:'Dressrosa',start:'3:56'},
+  {n:633,t:'¡Un formidable guerrero desconocido! ¡Lucy aparece!',tp:'canon',arc:'Dressrosa',start:'5:00'},
+  {n:634,t:'¡Un noble pirata! ¡Cavendish!',tp:'canon',arc:'Dressrosa',start:'5:30'},
+  {n:635,t:'La fatídica reunión. Bellamy la Hiena',tp:'canon',arc:'Dressrosa',start:'4:55'},
+  {n:636,t:'¡Un supernovato! ¡Bartolomeo el Caníbal!',tp:'canon',arc:'Dressrosa',start:'5:25'},
+  {n:637,t:'¡Se enfrentan grandes nombres! ¡La intensa batalla del bloque B!',tp:'canon',arc:'Dressrosa',start:'5:15'},
+  {n:638,t:'¡Un golpe mortal! ¡El impresionante King Punch!',tp:'canon',arc:'Dressrosa',start:'5:20'},
+  {n:639,t:'¡El ataque de los Peces Peleadores! ¡Cruzando el mortal puente de acero!',tp:'canon',arc:'Dressrosa',start:'4:53'},
+  {n:640,t:'¡Aventura! ¡La isla de las hadas, Green Bit!',tp:'canon',arc:'Dressrosa',start:'4:40'},
+  {n:641,t:'¡El mundo desconocido! ¡El reino de Tontatta!',tp:'canon',arc:'Dressrosa',start:'5:05'},
+  {n:642,t:'¡La estrategia del siglo! ¡Doflamingo hace su jugada!',tp:'canon',arc:'Dressrosa',start:'5:46'},
+  {n:643,t:'¡Estremeciendo el cielo y la tierra! ¡El poder del almirante Fujitora!',tp:'canon',arc:'Dressrosa',start:'4:10'},
+  {n:644,t:'¡Un golpe de ira! Un gigante contra Lucy',tp:'canon',arc:'Dressrosa',start:'4:15'},
+  {n:645,t:'¡La explosión del Cañón Destructor! ¡Lucy en graves problemas!',tp:'canon',arc:'Dressrosa',start:'4:25'},
+  {n:646,t:'¡El pirata legendario! ¡Don Chinjao!',tp:'canon',arc:'Dressrosa',start:'4:18'},
+  {n:647,t:'¡Luz y sombra! ¡La oscuridad que se esconde en Dressrosa!',tp:'canon',arc:'Dressrosa',start:'3:52'},
+  {n:648,t:'¡Partiendo a la batalla! ¡El héroe legendario, Usoland!',tp:'canon',arc:'Dressrosa',start:'6:45'},
+  {n:649,t:'¡La violenta batalla llega a su fin! ¡Lucy contra Chinjao!',tp:'canon',arc:'Dressrosa',start:'5:17'},
+  {n:650,t:'¡Luffy y la gladiadora del destino, Rebecca!',tp:'canon',arc:'Dressrosa',start:'5:05'},
+  {n:651,t:'¡Te protegeré hasta el fin! ¡Rebecca y el Soldado de juguete!',tp:'canon',arc:'Dressrosa',start:'4:00'},
+  {n:652,t:'¡El último y más sangriento bloque! ¡Empieza la batalla del bloque D!',tp:'canon',arc:'Dressrosa',start:'4:00'},
+  {n:653,t:'¡Una batalla decisiva! ¡Giolla contra los Sombrero de Paja!',tp:'canon',arc:'Dressrosa',start:'4:45'},
+  {n:654,t:'¡Una hermosa espada! ¡Cavendish del Caballo Blanco!',tp:'canon',arc:'Dressrosa',start:'5:30'},
+  {n:655,t:'¡Una gran batalla! ¡Sanji contra Doflamingo!',tp:'canon',arc:'Dressrosa',start:'5:12'},
+  {n:656,t:'¡El ataque especial de Rebecca! ¡El Baile del Agua a la Espalda!',tp:'canon',arc:'Dressrosa',start:'5:48'},
+  {n:657,t:'¡El peleador más violento! ¡Logan contra Rebecca!',tp:'canon',arc:'Dressrosa',start:'4:35'},
+  {n:658,t:'¡Una gran sorpresa! ¡La verdadera identidad del soldado de juguete!',tp:'canon',arc:'Dressrosa',start:'3:58'},
+  {n:659,t:'¡Un horrible pasado! ¡El secreto de Dressrosa!',tp:'canon',arc:'Dressrosa',start:'4:09'},
+  {n:660,t:'¡Una pesadilla! La trágica noche de Dressrosa',tp:'canon',arc:'Dressrosa',start:'5:24'},
+  {n:661,t:'Una batalla entre Shichibukai. Law contra Doflamingo',tp:'canon',arc:'Dressrosa',start:'5:20'},
+  {n:662,t:'¡Dos grandes rivales se encuentran! Sombrero de Paja y el Demonio Celestial',tp:'canon',arc:'Dressrosa',start:'5:45'},
+  {n:663,t:'Luffy queda sorprendido. El hombre que heredará la voluntad de Ace',tp:'canon',arc:'Dressrosa',start:'4:08'},
+  {n:664,t:'Comienza la Operación SOP. Usoland a la carga',tp:'canon',arc:'Dressrosa',start:'4:50'},
+  {n:665,t:'Sentimientos apasionados. Rebecca contra Suleiman',tp:'canon',arc:'Dressrosa',start:'4:07'},
+  {n:666,t:'¡¿Se decide el ganador?! La impactante conclusión del bloque D',tp:'canon',arc:'Dressrosa',start:'5:40'},
+  {n:667,t:'La decisión del almirante Fujitora contra Doflamingo',tp:'canon',arc:'Dressrosa',start:'5:15'},
+  {n:668,t:'Arranca la final. Llega el héroe, Diamante',tp:'canon',arc:'Dressrosa',start:'5:40'},
+  {n:669,t:'¡Un castillo móvil! ¡Aparece un oficial del mayor rango, Pica!',tp:'canon',arc:'Dressrosa',start:'4:50'},
+  {n:670,t:'¡Impacta la Garra del Dragón! ¡El ataque intimidante de Lucy!',tp:'canon',arc:'Dressrosa',start:'5:15'},
+  {n:671,t:'Derroten a Sugar. ¡Ataca el ejército de las personas pequeñas!',tp:'canon',arc:'Dressrosa',start:'6:06'},
+  {n:672,t:'El último rayo de esperanza. ¡El secreto de nuestro comandante!',tp:'canon',arc:'Dressrosa',start:'4:00'},
+  {n:673,t:'Un humano que se rompe. ¡La gran explosión de Gladius!',tp:'canon',arc:'Dressrosa',start:'5:45'},
+  {n:674,t:'¡El mentiroso Usoland en plena huida!',tp:'canon',arc:'Dressrosa',start:'5:07'},
+  {n:675,t:'Un encuentro fatídico. Kyros y el rey Riku',tp:'canon',arc:'Dressrosa',start:'3:40'},
+  {n:676,t:'¡La operación fracasa! ¡¿El héroe Usoland muere?!',tp:'canon',arc:'Dressrosa',start:'5:23'},
+  {n:677,t:'¡Revive la leyenda! Kyros ataca con toda su fuerza',tp:'canon',arc:'Dressrosa',start:'5:08'},
+  {n:678,t:'¡Explota el Puño de Fuego! El poder de la fruta Mera Mera revive',tp:'canon',arc:'Dressrosa',start:'5:22'},
+  {n:679,t:'Una llegada elegante. ¡El jefe de Estado Mayor del Ejército Revolucionario, Sabo!',tp:'canon',arc:'Dressrosa',start:'6:35'},
+  {n:680,t:'La trampa del demonio. El plan de exterminio de Dressrosa',tp:'canon',arc:'Dressrosa',start:'5:35'},
+  {n:681,t:'El hombre de los 500 millones. ¡El objetivo es Usoland!',tp:'canon',arc:'Dressrosa',start:'4:15'},
+  {n:682,t:'Atravesando las líneas enemigas. Luffy y Zoro inician el contraataque',tp:'canon',arc:'Dressrosa',start:'6:10'},
+  {n:683,t:'Haciendo temblar la tierra. Desciende Pica, el Dios de la Destrucción',tp:'canon',arc:'Dressrosa',start:'5:20'},
+  {n:684,t:'¡Gran reunión! Luffy y el ejército de brutales guerreros',tp:'canon',arc:'Dressrosa',start:'4:33'},
+  {n:685,t:'¡Avance a paso firme! ¡El ejército de Luffy contra Pica!',tp:'canon',arc:'Dressrosa',start:'4:35'},
+  {n:686,t:'¡Una confesión impactante! ¡El apasionado juramento desde el alma de Law!',tp:'canon',arc:'Dressrosa',start:'5:25'},
+  {n:687,t:'¡Un gran choque! El jefe de Estado Mayor Sabo contra el almirante Fujitora',tp:'canon',arc:'Dressrosa',start:'5:20'},
+  {n:688,t:'Una situación desesperada. ¡Luffy cae en una trampa!',tp:'canon',arc:'Dressrosa',start:'5:23'},
+  {n:689,t:'¡La gran huida! El Arma Elefante que rescata a Luffy',tp:'canon',arc:'Dressrosa',start:'5:30'},
+  {n:690,t:'Un frente unido. Luffy se abre paso hacia la victoria',tp:'canon',arc:'Dressrosa',start:'4:15'},
+  {n:691,t:'El segundo samurái. Aparece en escena Lluvia Nocturna Kanjuro',tp:'canon',arc:'Dressrosa',start:'5:15'},
+  {n:692,t:'Una intensa batalla contra Pica. ¡El ataque mortal de Zoro!',tp:'canon',arc:'Dressrosa',start:'4:44'},
+  {n:693,t:'La princesa de las personas pequeñas. La cautiva Mansherry',tp:'canon',arc:'Dressrosa',start:'4:10'},
+  {n:694,t:'¡Invencibles! El temible ejército de muñecos destrozacabezas',tp:'canon',arc:'Dressrosa',start:'4:45'},
+  {n:695,t:'¡Arriesguen sus vidas! Luffy es la clave para la victoria',tp:'canon',arc:'Dressrosa',start:'6:22'},
+  {n:696,t:'Una reunión emotiva. ¡Rebecca y Kyros!',tp:'canon',arc:'Dressrosa',start:'6:00'},
+  {n:697,t:'¡Un disparo letal! ¡El hombre que salvará Dressrosa!',tp:'canon',arc:'Dressrosa',start:'5:18'},
+  {n:698,t:'Una erupción de ira. El plan insuperable de Luffy y Law',tp:'canon',arc:'Dressrosa',start:'5:34'},
+  {n:699,t:'Una familia noble. ¡La verdadera identidad de Doflamingo!',tp:'canon',arc:'Dressrosa',start:'4:35'},
+  {n:700,t:'El poder definitivo. ¡El secreto de la fruta Ope Ope!',tp:'canon',arc:'Dressrosa',start:'7:00'},
+  {n:701,t:'Recuerdos tristes. ¡Law, el niño de la Ciudad Blanca!',tp:'canon',arc:'Dressrosa',start:'3:40'},
+  {n:702,t:'¡Un Dragón Celestial! El pasado tormentoso de Doffy',tp:'canon',arc:'Dressrosa',start:'5:01'},
+  {n:703,t:'Un camino de sufrimiento. El viaje de la vida de Law y Corazón',tp:'canon',arc:'Dressrosa',start:'4:15'},
+  {n:704,t:'¡Se acerca el momento! ¡Roba la fruta Ope Ope!',tp:'canon',arc:'Dressrosa',start:'4:43'},
+  {n:705,t:'El momento de decidirse. ¡La sonrisa de despedida de Corazón!',tp:'canon',arc:'Dressrosa',start:'4:55'},
+  {n:706,t:'Avanza, Law. ¡La última pelea del hombre bondadoso!',tp:'canon',arc:'Dressrosa',start:'5:14'},
+  {n:707,t:'¡Hacia la libertad! Explotan los Disparos de Inyección de Law',tp:'canon',arc:'Dressrosa',start:'5:44'},
+  {n:708,t:'Una pelea apasionada. Law contra Doflamingo',tp:'canon',arc:'Dressrosa',start:'5:55'},
+  {n:709,t:'Una batalla decisiva contra los oficiales. El orgulloso Hajrudin',tp:'canon',arc:'Dressrosa',start:'4:25'},
+  {n:710,t:'La batalla del amor. El nuevo líder Sai contra Baby 5',tp:'canon',arc:'Dressrosa',start:'4:15'},
+  {n:711,t:'El orgullo del hombre. ¡El último ataque de Bellamy!',tp:'canon',arc:'Dressrosa',start:'5:23'},
+  {n:712,t:'Un fuerte viento y una marejada. Hakuba contra Dellinger',tp:'canon',arc:'Dressrosa',start:'6:10'},
+  {n:713,t:'Bari Bari. ¡El Homage Shinken ataca!',tp:'canon',arc:'Dressrosa',start:'5:52'},
+  {n:714,t:'La princesa sanadora. ¡Salven a Mansherry!',tp:'canon',arc:'Dressrosa',start:'4:10'},
+  {n:715,t:'Un duelo viril. La elegía de amor de Señor',tp:'canon',arc:'Dressrosa',start:'5:07'},
+  {n:716,t:'Polvo estelar de la muerte. La tormenta de ataques de Diamante',tp:'canon',arc:'Dressrosa',start:'4:43'},
+  {n:717,t:'¡Trueno Bastardo! ¡El furioso ataque de Kyros!',tp:'canon',arc:'Dressrosa',start:'5:40'},
+  {n:718,t:'Moviéndose por el suelo. ¡La maniobra sorpresa de la estatua gigante Pica!',tp:'canon',arc:'Dressrosa',start:'5:13'},
+  {n:719,t:'Una batalla decisiva en el aire. ¡La nueva técnica secreta de Zoro estalla!',tp:'canon',arc:'Dressrosa',start:'5:09'},
+  {n:720,t:'¡Adiós! ¡El golpe de despedida de Bellamy!',tp:'canon',arc:'Dressrosa',start:'5:25'},
+  {n:721,t:'Law muere. ¡El furioso ataque de Luffy!',tp:'canon',arc:'Dressrosa',start:'6:15'},
+  {n:722,t:'Una espada de tenacidad. ¡El contraataque del Gamma Knife!',tp:'canon',arc:'Dressrosa',start:'5:48'},
+  {n:723,t:'Una colisión de Haki. Luffy contra Doflamingo',tp:'canon',arc:'Dressrosa',start:'5:15'},
+  {n:724,t:'Inexpugnable. El increíble secreto de Trébol',tp:'canon',arc:'Dressrosa',start:'5:15'},
+  {n:725,t:'La ira estalla. Yo cargaré con todo',tp:'canon',arc:'Dressrosa',start:'6:55'},
+  {n:726,t:'¡Gear Fourth! ¡El increíble Boundman!',tp:'canon',arc:'Dressrosa',start:'5:30'},
+  {n:727,t:'¡Un gran contraataque! ¡El despertar de Doflamingo!',tp:'canon',arc:'Dressrosa',start:'5:27'},
+  {n:728,t:'¡Luffy! La poderosa Leo Bazooka',tp:'canon',arc:'Dressrosa',start:'7:00'},
+  {n:729,t:'Kaen Ryuou. Protejan la vida de Luffy',tp:'canon',arc:'Dressrosa',start:'6:00'},
+  {n:730,t:'Lágrimas Milagrosas. ¡La pelea de Mansherry!',tp:'canon',arc:'Dressrosa',start:'5:05'},
+  {n:731,t:'Mientras respiremos. ¡Detengan la mortal Jaula de Pájaros!',tp:'canon',arc:'Dressrosa',start:'5:20'},
+  {n:732,t:'Viva o muerta. La fatídica cuenta regresiva',tp:'canon',arc:'Dressrosa',start:'5:05'},
+  {n:733,t:'Golpea los cielos. La iracunda King Kong Gun de Luffy',tp:'canon',arc:'Dressrosa',start:'6:05'},
+  {n:734,t:'¡Rumbo a la libertad! ¡La alegría de Dressrosa!',tp:'canon',arc:'Dressrosa',start:'5:45'},
+  {n:735,t:'Lo inaudito. ¡La sorpresiva decisión del almirante Fujitora!',tp:'canon',arc:'Dressrosa',start:'5:12'},
+  {n:736,t:'Enviando una onda de choque. ¡La Peor Generación actúa!',tp:'canon',arc:'Dressrosa',start:'5:40'},
+  {n:737,t:'El nacimiento de la leyenda. ¡Las aventuras del Guerrero Revolucionario Sabo!',tp:'canon',arc:'Dressrosa',start:'3:50'},
+  {n:738,t:'El lazo fraternal. La historia oculta de la reunión de Luffy y Sabo',tp:'canon',arc:'Dressrosa',start:'4:25'},
+  {n:739,t:'La criatura más fuerte. Uno de los Cuatro Emperadores, Kaido el Rey de las Bestias',tp:'canon',arc:'Dressrosa',start:'3:55'},
+  {n:740,t:'Fujitora actúa. El asedio total de los Sombrero de Paja',tp:'canon',arc:'Dressrosa',start:'4:18'},
+  {n:741,t:'Estado de emergencia. ¡Secuestran a Rebecca!',tp:'canon',arc:'Dressrosa',start:'5:30'},
+  {n:742,t:'El lazo entre padre e hija. ¡Kyros y Rebecca!',tp:'canon',arc:'Dressrosa',start:'4:15'},
+  {n:743,t:'El orgullo del hombre. Luffy contra Fujitora, de frente',tp:'canon',arc:'Dressrosa',start:'5:26'},
+  {n:744,t:'Sin escapatoria. ¡La persecución implacable del almirante Fujitora!',tp:'canon',arc:'Dressrosa',start:'3:52'},
+  {n:745,t:'Las copas de los hijos. ¡Se forma la Flota del Sombrero de Paja!',tp:'canon',arc:'Dressrosa',start:'4:40'},
+  {n:746,t:'Los numerosos rivales pelean entre sí. Los furiosos monstruos del Nuevo Mundo',tp:'mixed',arc:'Dressrosa',start:'4:45',note:'Ver casi todo, desde el minuto 4:45 hasta 22:49.'}
+]},
+{id:18, name:"T18: Zou (747-782)", range:"747-782", eps:[
+  {n:747,t:'La fortaleza de plata. La gran aventura de Luffy y Barto',tp:'mixed',arc:'Silver Mine',start:'3:29',note:'Solo ver el inicio, desde el minuto 3:28 hasta 6:15.'},
+  {n:748,t:'Un laberinto subterráneo. Luffy contra el hombre vagoneta',tp:'filler',arc:'Silver Mine',start:'4:15'},
+  {n:749,t:'Las técnicas de espada se encienden. ¡Law y Zoro por fin aparecen!',tp:'filler',arc:'Silver Mine',start:'5:10'},
+  {n:750,t:'Una situación desesperada. Luffy libra una batalla bajo calor extremo',tp:'filler',arc:'Silver Mine',start:'5:52'},
+  {n:751,t:'Se eleva el telón de una nueva aventura. ¡Llegada a la isla fantasma Zou!',tp:'mixed',arc:'Zou',start:'2:45',note:'Ver desde el minuto 17:49 hasta el final.'},
+  {n:752,t:'El nuevo Shichibukai. Aparece el hijo del legendario Barbablanca',tp:'canon',arc:'Zou',start:'3:55'},
+  {n:753,t:'Escalada mortal. ¡Gran aventura en el lomo del elefante gigante!',tp:'canon',arc:'Zou',start:'4:02'},
+  {n:754,t:'Empieza una batalla. ¡Luffy contra la tribu Mink!',tp:'canon',arc:'Zou',start:'5:14'},
+  {n:755,t:'¡Garchu! Los Sombrero de Paja se reúnen',tp:'canon',arc:'Zou',start:'5:25'},
+  {n:756,t:'Empiecen el contraataque. ¡Grandes maniobras del Sombrero Enroscado!',tp:'canon',arc:'Zou',start:'4:20'},
+  {n:757,t:'Desciende una amenaza. ¡Jack, de los Piratas Bestia!',tp:'canon',arc:'Zou',start:'5:13'},
+  {n:758,t:'El Rey del Día. ¡Aparece el duque Inuarashi!',tp:'canon',arc:'Zou',start:'6:15'},
+  {n:759,t:'El Rey de la Noche. Aparece Nekomamushi',tp:'canon',arc:'Zou',start:'6:33'},
+  {n:760,t:'La capital exterminada. ¡La llegada del Sombrero Enroscado!',tp:'canon',arc:'Zou',start:'6:00'},
+  {n:761,t:'La hora límite. ¡El lazo de la tribu Mink y la tripulación!',tp:'canon',arc:'Zou',start:'4:54'},
+  {n:762,t:'El delincuente vuelve a casa. Los asesinos de la Emperatriz Big Mom',tp:'canon',arc:'Zou',start:'5:08'},
+  {n:763,t:'La verdad tras la desaparición. Sanji recibe una sorpresiva invitación',tp:'canon',arc:'Zou',start:'5:30'},
+  {n:764,t:'Para mis amigos. La nota de despedida de Sanji',tp:'canon',arc:'Zou',start:'5:48'},
+  {n:765,t:'Vamos a ver al amo Nekomamushi',tp:'canon',arc:'Zou',start:'6:03'},
+  {n:766,t:'La decisión de Luffy. ¡Sanji a punto de renunciar!',tp:'canon',arc:'Zou',start:'4:47'},
+  {n:767,t:'Una situación explosiva. ¡El perro, el gato y el samurái!',tp:'canon',arc:'Zou',start:'4:15'},
+  {n:768,t:'¡El tercero! El ninja Raizo de la Niebla aparece',tp:'canon',arc:'Zou',start:'5:14'},
+  {n:769,t:'¡Una piedra roja! La guía al One Piece',tp:'canon',arc:'Zou',start:'5:42'},
+  {n:770,t:'El secreto de la tierra de Wano. La familia Kozuki y los Poneglyphs',tp:'canon',arc:'Zou',start:'4:48'},
+  {n:771,t:'Un voto entre hombres. Luffy y Kozuki Momonosuke',tp:'canon',arc:'Zou',start:'5:26'},
+  {n:772,t:'El viaje legendario. ¡El perro, el gato y el Rey de los Piratas!',tp:'canon',arc:'Zou',start:'5:32'},
+  {n:773,t:'La pesadilla regresa. El ataque del invencible Jack',tp:'canon',arc:'Zou',start:'6:55'},
+  {n:774,t:'Una batalla para defender Zou. ¡Luffy y Zunesha!',tp:'canon',arc:'Zou',start:'4:32'},
+  {n:775,t:'Salven a Zunesha. ¡La operación de rescate de los Sombrero de Paja!',tp:'filler',arc:'Zou',start:'4:06'},
+  {n:776,t:'La despedida. ¡Partiendo a salvar a Sanji!',tp:'canon',arc:'Zou',start:'5:27'},
+  {n:777,t:'Al Reverie. La princesa Vivi y la princesa Shirahoshi',tp:'canon',arc:'Zou',start:'4:20'},
+  {n:778,t:'Al Reverie. Rebecca y el Reino Sakura',tp:'canon',arc:'Zou',start:'4:18'},
+  {n:779,t:'Kaido regresa. ¡Una amenaza inminente a la Peor Generación!',tp:'canon',arc:'Zou',start:'5:13'},
+  {n:780,t:'Un frente hambriento. ¡Luffy y los novatos de la Marina!',tp:'filler',arc:'Supernovas de la Marina',start:'4:08'},
+  {n:781,t:'Los tres implacables. ¡La persecución de los Sombrero de Paja!',tp:'filler',arc:'Supernovas de la Marina',start:'5:18'},
+  {n:782,t:'El puño del diablo. ¡Un duelo! Luffy contra Grount',tp:'filler',arc:'Supernovas de la Marina',start:'4:24'}
+]},
+{id:19, name:"T19: Isla Whole Cake (783-891)", range:"783-891", eps:[
+  {n:783,t:'El regreso a casa de Sanji. ¡Al territorio de Big Mom!',tp:'canon',arc:'Whole Cake Island',start:'4:45'},
+  {n:784,t:'0 y 4. Encuentro con el Germa 66',tp:'canon',arc:'Whole Cake Island',start:'5:50'},
+  {n:785,t:'Una crisis de veneno mortal. ¡Luffy y Reiju!',tp:'canon',arc:'Whole Cake Island',start:'5:24'},
+  {n:786,t:'¡Totto Land! Aparece la Emperatriz Big Mom',tp:'canon',arc:'Whole Cake Island',start:'5:10'},
+  {n:787,t:'La hija de la Emperatriz. La prometida de Sanji, Pudding',tp:'canon',arc:'Whole Cake Island',start:'4:56'},
+  {n:788,t:'¡Un gran ataque! Las punzadas de hambre de mamá',tp:'canon',arc:'Whole Cake Island',start:'5:50'},
+  {n:789,t:'¡¿La capital cae?! Big Mom y Jimbei',tp:'canon',arc:'Whole Cake Island',start:'5:00'},
+  {n:790,t:'El castillo de la Emperatriz. Llegando a la isla Whole Cake',tp:'canon',arc:'Whole Cake Island',start:'5:10'},
+  {n:791,t:'Un bosque de dulces. ¡¿Luffy contra Luffy?!',tp:'canon',arc:'Whole Cake Island',start:'6:05'},
+  {n:792,t:'El asesino de mamá. ¡Luffy y el bosque seductor!',tp:'canon',arc:'Whole Cake Island',start:'5:47'},
+  {n:793,t:'Un reino marinero. El rey de Germa, Judge',tp:'canon',arc:'Whole Cake Island',start:'5:18'},
+  {n:794,t:'Una batalla entre padre e hijo. ¡Judge contra Sanji!',tp:'canon',arc:'Whole Cake Island',start:'5:00'},
+  {n:795,t:'Una gran ambición. Big Mom y Caesar',tp:'canon',arc:'Whole Cake Island',start:'4:45'},
+  {n:796,t:'La tierra de las almas. ¡La habilidad mortal de mamá!',tp:'canon',arc:'Whole Cake Island',start:'4:10'},
+  {n:797,t:'¡Un oficial! Cracker de los Tres Generales Dulces aparece',tp:'canon',arc:'Whole Cake Island',start:'5:25'},
+  {n:798,t:'Un enemigo de 800 millones. Luffy contra Mil Brazos Cracker',tp:'canon',arc:'Whole Cake Island',start:'5:53'},
+  {n:799,t:'Duelo con toda su fuerza. Gear Fourth contra la habilidad Bisu Bisu',tp:'canon',arc:'Whole Cake Island',start:'5:15'},
+  {n:800,t:'El primero y el segundo. ¡Se reúne la familia Vinsmoke!',tp:'canon',arc:'Whole Cake Island',start:'5:00'},
+  {n:801,t:'La vida del benefactor. Sanji y el jefe Zeff',tp:'canon',arc:'Whole Cake Island',start:'4:35'},
+  {n:802,t:'Sanji furioso. El secreto del Germa 66',tp:'canon',arc:'Whole Cake Island',start:'5:15'},
+  {n:803,t:'El pasado que abandonó Vinsmoke Sanji',tp:'canon',arc:'Whole Cake Island',start:'5:33'},
+  {n:804,t:'Al East Blue. La determinada partida de Sanji',tp:'canon',arc:'Whole Cake Island',start:'3:36'},
+  {n:805,t:'Una batalla de límites. Luffy y las galletas infinitas',tp:'canon',arc:'Whole Cake Island',start:'3:30'},
+  {n:806,t:'El poder de la saciedad. La nueva forma del Gear Fourth: ¡Tank Man!',tp:'canon',arc:'Whole Cake Island',start:'4:20'},
+  {n:807,t:'Un duelo desgarrador. Luffy contra Sanji (primera parte)',tp:'canon',arc:'Whole Cake Island',start:'6:40'},
+  {n:808,t:'Un duelo desgarrador. Luffy contra Sanji (segunda parte)',tp:'canon',arc:'Whole Cake Island',start:'4:50'},
+  {n:809,t:'Una tormenta de venganza. ¡Un furioso ejército ataca!',tp:'canon',arc:'Whole Cake Island',start:'3:55'},
+  {n:810,t:'El fin de la aventura. La decidida proposición de Sanji',tp:'canon',arc:'Whole Cake Island',start:'4:38'},
+  {n:811,t:'Esperaré aquí. Luffy contra el Ejército Furioso',tp:'canon',arc:'Whole Cake Island',start:'4:26'},
+  {n:812,t:'Invadiendo el castillo. Encuentren el Road Poneglyph',tp:'canon',arc:'Whole Cake Island',start:'4:13'},
+  {n:813,t:'Un enfrentamiento fatídico. ¡Luffy y Big Mom!',tp:'canon',arc:'Whole Cake Island',start:'4:02'},
+  {n:814,t:'Grito del alma. La operación relámpago de Brook y Pedro',tp:'canon',arc:'Whole Cake Island',start:'5:20'},
+  {n:815,t:'Adiós. La dramática determinación de Pudding',tp:'canon',arc:'Whole Cake Island',start:'4:26'},
+  {n:816,t:'La historia del ojo izquierdo. Pedro contra el Barón Tamago',tp:'canon',arc:'Whole Cake Island',start:'3:45'},
+  {n:817,t:'Cigarrillos húmedos. La noche antes de la boda',tp:'canon',arc:'Whole Cake Island',start:'3:57'},
+  {n:818,t:'El alma temeraria. Brook contra Big Mom',tp:'canon',arc:'Whole Cake Island',start:'4:20'},
+  {n:819,t:'El deseo de Sora. Sanji, el fracaso del Germa',tp:'canon',arc:'Whole Cake Island',start:'4:04'},
+  {n:820,t:'Para alcanzar a Sanji. ¡El ataque de venganza de Luffy!',tp:'canon',arc:'Whole Cake Island',start:'4:04'},
+  {n:821,t:'Caos en el castillo. Luffy buscando el reencuentro',tp:'canon',arc:'Whole Cake Island',start:'4:08'},
+  {n:822,t:'Decidiendo despedirse. Sanji y el almuerzo del Sombrero de Paja',tp:'canon',arc:'Whole Cake Island',start:'3:42'},
+  {n:823,t:'La Emperatriz se da vuelta. ¡Misión Rescatar a Brook!',tp:'canon',arc:'Whole Cake Island',start:'3:45'},
+  {n:824,t:'El encuentro. Luffy peleando hasta el límite',tp:'canon',arc:'Whole Cake Island',start:'4:10'},
+  {n:825,t:'Mentiroso. Luffy y Sanji',tp:'canon',arc:'Whole Cake Island',start:'7:35'},
+  {n:826,t:'Sanji regresa. ¡Destrocen la fiesta de té del infierno!',tp:'canon',arc:'Whole Cake Island',start:'4:20'},
+  {n:827,t:'¡Una reunión secreta! Luffy contra los Piratas Fire Tank',tp:'canon',arc:'Whole Cake Island',start:'1:50'},
+  {n:828,t:'El pacto mortal. ¡Las fuerzas aliadas de Luffy y Bege!',tp:'canon',arc:'Whole Cake Island',start:'3:40'},
+  {n:829,t:'Luffy inicia una maniobra secreta. Empieza la boda de las conspiraciones',tp:'canon',arc:'Whole Cake Island',start:'3:33'},
+  {n:830,t:'La familia se reúne. Empieza la fiesta de té del infierno',tp:'canon',arc:'Whole Cake Island',start:'3:20'},
+  {n:831,t:'La pareja enmascarada. ¡Llegan Sanji y Pudding!',tp:'canon',arc:'Whole Cake Island',start:'3:45'},
+  {n:832,t:'Un beso mortal. ¡Empieza la misión para matar a la Emperatriz!',tp:'canon',arc:'Whole Cake Island',start:'4:45'},
+  {n:833,t:'¡Regresando la taza de sake! El valiente Jinbe paga su deuda',tp:'canon',arc:'Whole Cake Island',start:'4:00'},
+  {n:834,t:'¡¿La misión falló?! Los Piratas de Big Mom contraatacan',tp:'canon',arc:'Whole Cake Island',start:'3:20'},
+  {n:835,t:'Corre, Sanji. ¡SOS! ¡Germa 66!',tp:'canon',arc:'Whole Cake Island',start:'5:00'},
+  {n:836,t:'El secreto de mamá. Elbaf y el pequeño monstruo',tp:'canon',arc:'Whole Cake Island',start:'3:20'},
+  {n:837,t:'Nace mamá. El día que Carmel desapareció',tp:'canon',arc:'Whole Cake Island',start:'3:55'},
+  {n:838,t:'¡El arma dispara! Hora de asesinar a Big Mom',tp:'canon',arc:'Whole Cake Island',start:'4:20'},
+  {n:839,t:'El ejército del mal. ¡Transfórmense, Germa 66!',tp:'canon',arc:'Whole Cake Island',start:'3:33'},
+  {n:840,t:'Fin de la relación paterna. Sanji y Judge',tp:'canon',arc:'Whole Cake Island',start:'3:28'},
+  {n:841,t:'¡Huida de la fiesta de té! Luffy contra Big Mom',tp:'canon',arc:'Whole Cake Island',start:'4:35'},
+  {n:842,t:'Empieza la ejecución. ¡¿Las fuerzas aliadas son aniquiladas?!',tp:'canon',arc:'Whole Cake Island',start:'4:05'},
+  {n:843,t:'El castillo se hunde. La gran huida de los Sombrero de Paja',tp:'canon',arc:'Whole Cake Island',start:'4:35'},
+  {n:844,t:'La Lanza de Elbaf. ¡La embestida voladora de Big Mom!',tp:'canon',arc:'Whole Cake Island',start:'4:33'},
+  {n:845,t:'La determinación de Pudding. ¡El Bosque Seductor arde!',tp:'canon',arc:'Whole Cake Island',start:'4:25'},
+  {n:846,t:'Contraataque de rayo. ¡Nami y Zeus, la nube de tormenta!',tp:'canon',arc:'Whole Cake Island',start:'4:30'},
+  {n:847,t:'Una reunión casual. Sanji y la malvada Pudding enamorada',tp:'canon',arc:'Whole Cake Island',start:'3:55'},
+  {n:848,t:'Salven el Sunny. ¡Peleen con valentía, Chopper y Brook!',tp:'canon',arc:'Whole Cake Island',start:'3:58'},
+  {n:849,t:'Antes del amanecer. Pedro, el capitán de los guardianes',tp:'canon',arc:'Whole Cake Island',start:'3:38'},
+  {n:850,t:'Regresaré. ¡La salida mortal de Luffy!',tp:'canon',arc:'Whole Cake Island',start:'4:28'},
+  {n:851,t:'El hombre de los mil millones. El General Dulce más fuerte, Katakuri',tp:'canon',arc:'Whole Cake Island',start:'4:04'},
+  {n:852,t:'Empieza una dura batalla. Luffy contra Katakuri',tp:'canon',arc:'Whole Cake Island',start:'0:50'},
+  {n:853,t:'El Green Room. El timonel invencible, Jinbe',tp:'canon',arc:'Whole Cake Island',start:'4:45'},
+  {n:854,t:'La amenaza del topo. ¡La pelea silenciosa de Luffy!',tp:'canon',arc:'Whole Cake Island',start:'4:04'},
+  {n:855,t:'¡¿El fin de la batalla?! El despertar de ira de Katakuri',tp:'canon',arc:'Whole Cake Island',start:'3:45'},
+  {n:856,t:'El secreto prohibido. La merienda de Katakuri',tp:'canon',arc:'Whole Cake Island',start:'3:45'},
+  {n:857,t:'Luffy contraataca. ¡La debilidad del invencible Katakuri!',tp:'canon',arc:'Whole Cake Island',start:'5:00'},
+  {n:858,t:'¡Otra crisis! Gear Fourth contra Musou Donuts',tp:'canon',arc:'Whole Cake Island',start:'3:48'},
+  {n:859,t:'La rebelde Chiffon. El plan de Sanji para transportar el pastel',tp:'canon',arc:'Whole Cake Island',start:'4:05'},
+  {n:860,t:'El modo de vida de un hombre. La determinación de Bege y Luffy',tp:'canon',arc:'Whole Cake Island',start:'3:26'},
+  {n:861,t:'¡¿El pastel se hundió?! La batalla de huida de Sanji y Bege',tp:'canon',arc:'Whole Cake Island',start:'4:06'},
+  {n:862,t:'Sulong. La gran transformación de Carrot',tp:'canon',arc:'Whole Cake Island',start:'3:46'},
+  {n:863,t:'Ábranse paso. ¡La batalla marina de los Sombrero de Paja!',tp:'canon',arc:'Whole Cake Island',start:'3:58'},
+  {n:864,t:'Enfrentamiento. La Emperatriz contra los Sombrero de Paja',tp:'canon',arc:'Whole Cake Island',start:'4:40'},
+  {n:865,t:'Los preceptos del Rey Oscuro. La batalla contra Katakuri cambia',tp:'canon',arc:'Whole Cake Island',start:'4:45'},
+  {n:866,t:'Por fin regresa Sanji, el hombre que detendrá a la Emperatriz',tp:'canon',arc:'Whole Cake Island',start:'4:15'},
+  {n:867,t:'Rondando en la oscuridad. ¡Un asesino ataca a Luffy!',tp:'canon',arc:'Whole Cake Island',start:'3:43'},
+  {n:868,t:'La determinación de un hombre. La pelea mortal de Katakuri',tp:'canon',arc:'Whole Cake Island',start:'3:30'},
+  {n:869,t:'¡Despierta el Haki de Observación que supera al más fuerte!',tp:'canon',arc:'Whole Cake Island',start:'5:10'},
+  {n:870,t:'Un puño de velocidad divina. ¡Otra aplicación del Gear Fourth!',tp:'canon',arc:'Whole Cake Island',start:'5:36'},
+  {n:871,t:'Por fin termina. El clímax de la pelea contra Katakuri',tp:'canon',arc:'Whole Cake Island',start:'3:22'},
+  {n:872,t:'Una situación desesperada. ¡La trampa mortal de Luffy!',tp:'canon',arc:'Whole Cake Island',start:'4:10'},
+  {n:873,t:'Escapando del abismo. ¡Los formidables refuerzos, Germa!',tp:'canon',arc:'Whole Cake Island',start:'3:31'},
+  {n:874,t:'La última esperanza. Los Piratas Sol aparecen',tp:'canon',arc:'Whole Cake Island',start:'4:18'},
+  {n:875,t:'Un sabor cautivador. El pastel de la felicidad de Sanji',tp:'canon',arc:'Whole Cake Island',start:'3:15'},
+  {n:876,t:'El hombre de humanidad. Una desesperada corriente marina',tp:'canon',arc:'Whole Cake Island',start:'4:00'},
+  {n:877,t:'La hora de despedirse. El último deseo de Pudding',tp:'canon',arc:'Whole Cake Island',start:'2:45'},
+  {n:878,t:'El mundo se sorprende. ¡Surge el quinto Emperador del Mar!',tp:'mixed',arc:'Levely',start:'2:40',note:'Ver desde el minuto 14:55 hasta el final.'},
+  {n:879,t:'Al Reverie. Los aliados de los Sombrero de Paja se reúnen',tp:'mixed',arc:'Levely',start:'3:34',note:'Ver desde 3:34 hasta 11:30 y desde 19:48 hasta el final.'},
+  {n:880,t:'Sabo entra en acción. ¡Los capitanes del Ejército Revolucionario!',tp:'canon',arc:'Levely',start:'3:34'},
+  {n:881,t:'El implacable almirante Sakazuki entra en acción',tp:'mixed',arc:'Levely',start:'3:34',note:'Ver desde 3:34 hasta 8:22.'},
+  {n:882,t:'La Guerra de los Mejores. La voluntad del Rey de los Piratas',tp:'mixed',arc:'Levely',start:'3:34',note:'Ver desde el minuto 17:28 hasta el final.'},
+  {n:883,t:'Un paso hacia su sueño. ¡Shirahoshi sale en el sol!',tp:'mixed',arc:'Levely',start:'3:34',note:'Ver desde 3:34 hasta 6:26 y desde 17:05 hasta el final.'},
+  {n:884,t:'Lo extraño. Los sentimientos de Vivi y Rebecca',tp:'mixed',arc:'Levely',start:'3:34',note:'Ver desde 3:34 hasta 11:11 y desde 21:28 hasta el final.'},
+  {n:885,t:'Las sombras de la Tierra Santa. Un misterioso sombrero de paja',tp:'mixed',arc:'Levely',start:'3:34',note:'Ver desde 3:34 hasta 7:00, luego 12:00-14:06 y 17:33 hasta el final.'},
+  {n:886,t:'Problema en la Tierra Santa. ¡Objetivo: Shirahoshi!',tp:'mixed',arc:'Levely',start:'3:34',note:'Ver desde 3:34 hasta 9:16 y desde 17:26 hasta el final.'},
+  {n:887,t:'Una situación explosiva. Dos Emperadores tras Luffy',tp:'mixed',arc:'Levely',start:'3:34',note:'Ver desde 3:34 hasta 11:07 y desde 21:43 hasta el final.'},
+  {n:888,t:'Sabo enfurece. La tragedia del oficial Kuma (parte 1)',tp:'mixed',arc:'Levely',start:'3:34',note:'Ver desde 3:34 hasta 12:29 y desde 19:46 hasta el final.'},
+  {n:889,t:'Sabo enfurece. La tragedia del oficial Kuma (parte 2)',tp:'mixed',arc:'Levely',start:'3:34',note:'Ver desde 3:34 hasta 4:55 y desde 16:33 hasta el final.'},
+  {n:890,t:'¡Marco! El guardián del recuerdo de Barbablanca',tp:'mixed',arc:'Levely',start:'3:34',note:'Ver desde 3:34 hasta 7:28 y desde 17:03 hasta el final.'},
+  {n:891,t:'¡Subiendo la cascada! ¡El viaje por el mar de Wano!',tp:'canon',arc:'Levely',start:'2:40'}
+]},
+{id:20, name:"T20: País de Wano (892-1088)", range:"892-1088", eps:[
+  {n:892,t:'¡La tierra de Wano! Al país donde florecen los cerezos',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:893,t:'Otama aparece. ¡Luffy contra el ejército de Kaido!',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:894,t:'Él vendrá. ¡La leyenda de Ace en la tierra de Wano!',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:895,t:'¡Especial! Cidre, el mejor cazarrecompensas del mundo',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:896,t:'¡Especial! ¡Enfrentamiento! Luffy contra el rey de la carbonatación',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:897,t:'Salven a Otama. ¡Uniéndose en el páramo!',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:898,t:'¡El chico que comió el diablo! Luffy vs. Hawkins en la tierra de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:899,t:'Situación desesperada. El ataque de las bestias de Kaido',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:900,t:'En nombre de la unión. La decisión de Zoro',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:901,t:'Una samurái femenina. Señorita O-Tama y su habilidad especial',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:902,t:'El jefe del pueblo. Un espíritu que no olvidará al héroe',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:903,t:'EM ¡Una misión peligrosa! ¡Una reunión en la tierra de Wano!',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:904,t:'EM ¡La Flota del Sombrero de Paja unida! ¡Celebrando el reclutamiento!',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:905,t:'EM ¡Una aventura de la división! ¡El gran combate de Law!',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:906,t:'EM ¡Una aventura de la división! ¡El viaje de Marco!',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:907,t:'Ep. especial de relleno — Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:908,t:'Ep. especial de relleno — Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:909,t:'Episodio 909 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:910,t:'Episodio 910 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:911,t:'Episodio 911 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:912,t:'Episodio 912 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:913,t:'Episodio 913 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:914,t:'Episodio 914 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:915,t:'Episodio 915 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:916,t:'Episodio 916 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:917,t:'Episodio 917 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:918,t:'Episodio 918 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:919,t:'Episodio 919 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:920,t:'Episodio 920 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:921,t:'Episodio 921 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:922,t:'Episodio 922 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:923,t:'Episodio 923 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:924,t:'Episodio 924 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:925,t:'Episodio 925 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:926,t:'Episodio 926 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:927,t:'Episodio 927 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:928,t:'Episodio 928 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:929,t:'Episodio 929 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:930,t:'Episodio 930 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:931,t:'Episodio 931 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:932,t:'Episodio 932 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:933,t:'Episodio 933 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:934,t:'Episodio 934 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:935,t:'Episodio 935 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:936,t:'Episodio 936 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:937,t:'Episodio 937 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:938,t:'Episodio 938 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:939,t:'Episodio 939 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:940,t:'Episodio 940 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:941,t:'Episodio 941 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:942,t:'Episodio 942 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:943,t:'Episodio 943 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:944,t:'Episodio 944 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:945,t:'Episodio 945 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:946,t:'Episodio 946 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:947,t:'Episodio 947 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:948,t:'Episodio 948 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:949,t:'Episodio 949 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:950,t:'Episodio 950 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:951,t:'Episodio 951 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:952,t:'Episodio 952 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:953,t:'Episodio 953 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:954,t:'Episodio 954 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:955,t:'Episodio 955 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:956,t:'Episodio 956 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:957,t:'Episodio 957 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:958,t:'Episodio 958 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:959,t:'Episodio 959 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:960,t:'Episodio 960 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:961,t:'Episodio 961 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:962,t:'Episodio 962 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:963,t:'Episodio 963 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:964,t:'Episodio 964 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:965,t:'Episodio 965 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:966,t:'Episodio 966 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:967,t:'Episodio 967 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:968,t:'Episodio 968 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:969,t:'Episodio 969 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:970,t:'Episodio 970 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:971,t:'Episodio 971 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:972,t:'Episodio 972 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:973,t:'Episodio 973 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:974,t:'Episodio 974 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:975,t:'Episodio 975 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:976,t:'Episodio 976 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:977,t:'Episodio 977 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:978,t:'Episodio 978 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:979,t:'Episodio 979 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:980,t:'Episodio 980 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:981,t:'Episodio 981 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:982,t:'Episodio 982 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:983,t:'Episodio 983 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:984,t:'Episodio 984 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:985,t:'Episodio 985 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:986,t:'Episodio 986 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:987,t:'Episodio 987 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:988,t:'Episodio 988 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:989,t:'Episodio 989 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:990,t:'Episodio 990 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:991,t:'Episodio 991 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:992,t:'Episodio 992 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:993,t:'Episodio 993 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:994,t:'Episodio 994 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:995,t:'Episodio 995 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:996,t:'Episodio 996 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:997,t:'Episodio 997 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:998,t:'Episodio 998 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:999,t:'Episodio 999 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1000,t:'Episodio 1000 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1001,t:'Episodio 1001 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1002,t:'Episodio 1002 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1003,t:'Episodio 1003 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1004,t:'Episodio 1004 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1005,t:'Episodio 1005 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1006,t:'Episodio 1006 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1007,t:'Episodio 1007 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1008,t:'Episodio 1008 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1009,t:'Episodio 1009 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1010,t:'Episodio 1010 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1011,t:'Episodio 1011 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1012,t:'Episodio 1012 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1013,t:'Episodio 1013 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1014,t:'Episodio 1014 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1015,t:'Episodio 1015 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1016,t:'Episodio 1016 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1017,t:'Episodio 1017 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1018,t:'Episodio 1018 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1019,t:'Episodio 1019 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1020,t:'Episodio 1020 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1021,t:'Episodio 1021 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1022,t:'Episodio 1022 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1023,t:'Episodio 1023 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1024,t:'Episodio 1024 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1025,t:'Episodio 1025 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1026,t:'Episodio 1026 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1027,t:'Episodio 1027 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1028,t:'Episodio 1028 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1029,t:'Episodio 1029 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1030,t:'Episodio 1030 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1031,t:'Episodio 1031 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1032,t:'Episodio 1032 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1033,t:'Episodio 1033 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1034,t:'Episodio 1034 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1035,t:'Episodio 1035 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1036,t:'Episodio 1036 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1037,t:'Episodio 1037 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1038,t:'Episodio 1038 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1039,t:'Episodio 1039 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1040,t:'Episodio 1040 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1041,t:'Episodio 1041 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1042,t:'Episodio 1042 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1043,t:'Episodio 1043 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1044,t:'Episodio 1044 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1045,t:'Episodio 1045 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1046,t:'Episodio 1046 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1047,t:'Episodio 1047 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1048,t:'Episodio 1048 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1049,t:'Episodio 1049 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1050,t:'Episodio 1050 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1051,t:'Episodio 1051 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1052,t:'Episodio 1052 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1053,t:'Episodio 1053 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1054,t:'Episodio 1054 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1055,t:'Episodio 1055 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1056,t:'Episodio 1056 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1057,t:'Episodio 1057 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1058,t:'Episodio 1058 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1059,t:'Episodio 1059 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1060,t:'Episodio 1060 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1061,t:'Episodio 1061 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1062,t:'Episodio 1062 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1063,t:'Episodio 1063 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1064,t:'Episodio 1064 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1065,t:'Episodio 1065 — País de Wano',tp:'canon',arc:'País de Wano',start:'—'},
+  {n:1066,t:'Episodio 1066 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1067,t:'Episodio 1067 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1068,t:'Episodio 1068 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1069,t:'Episodio 1069 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1070,t:'Episodio 1070 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1071,t:'Episodio 1071 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1072,t:'Episodio 1072 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1073,t:'Episodio 1073 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1074,t:'Episodio 1074 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1075,t:'Episodio 1075 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1076,t:'Episodio 1076 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1077,t:'Episodio 1077 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1078,t:'Episodio 1078 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1079,t:'Episodio 1079 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1080,t:'Episodio 1080 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1081,t:'Episodio 1081 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1082,t:'Episodio 1082 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1083,t:'Episodio 1083 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1084,t:'Episodio 1084 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1085,t:'Episodio 1085 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1086,t:'Episodio 1086 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1087,t:'Episodio 1087 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'},
+  {n:1088,t:'Episodio 1088 — País de Wano',tp:'filler',arc:'País de Wano',start:'—'}
+]},
+{id:21, name:"T21: Isla Egghead (1089-1155)", range:"1089-1155", eps:[
+  {n:1089,t:'Episodio 1089 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1090,t:'Episodio 1090 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1091,t:'Episodio 1091 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1092,t:'Episodio 1092 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1093,t:'Episodio 1093 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1094,t:'Episodio 1094 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1095,t:'Episodio 1095 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1096,t:'Episodio 1096 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1097,t:'Episodio 1097 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1098,t:'Episodio 1098 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1099,t:'Episodio 1099 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1100,t:'Episodio 1100 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1101,t:'Episodio 1101 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1102,t:'Episodio 1102 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1103,t:'Episodio 1103 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1104,t:'Episodio 1104 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1105,t:'Episodio 1105 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1106,t:'Episodio 1106 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1107,t:'Episodio 1107 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1108,t:'Episodio 1108 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1109,t:'Episodio 1109 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1110,t:'Episodio 1110 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1111,t:'Episodio 1111 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1112,t:'Episodio 1112 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1113,t:'Episodio 1113 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1114,t:'Episodio 1114 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1115,t:'Episodio 1115 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1116,t:'Episodio 1116 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1117,t:'Episodio 1117 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1118,t:'Episodio 1118 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1119,t:'Episodio 1119 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1120,t:'Episodio 1120 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1121,t:'Episodio 1121 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1122,t:'Episodio 1122 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1123,t:'Episodio 1123 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1124,t:'Episodio 1124 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1125,t:'Episodio 1125 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1126,t:'Episodio 1126 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1127,t:'Episodio 1127 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1128,t:'Episodio 1128 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1129,t:'Episodio 1129 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1130,t:'Episodio 1130 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1131,t:'Episodio 1131 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1132,t:'Episodio 1132 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1133,t:'Episodio 1133 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1134,t:'Episodio 1134 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1135,t:'Episodio 1135 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1136,t:'Episodio 1136 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1137,t:'Episodio 1137 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1138,t:'Episodio 1138 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1139,t:'Episodio 1139 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1140,t:'Episodio 1140 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1141,t:'Episodio 1141 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1142,t:'Episodio 1142 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1143,t:'Episodio 1143 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1144,t:'Episodio 1144 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1145,t:'Episodio 1145 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1146,t:'Episodio 1146 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1147,t:'Episodio 1147 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1148,t:'Episodio 1148 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1149,t:'Episodio 1149 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1150,t:'Episodio 1150 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1151,t:'Episodio 1151 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1152,t:'Episodio 1152 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1153,t:'Episodio 1153 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1154,t:'Episodio 1154 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'},
+  {n:1155,t:'Episodio 1155 — Isla Egghead',tp:'canon',arc:'Isla Egghead',start:'—'}
+]},
+{id:22, name:"T22: Isla Elbaph (1156-?)", range:"1156-?", eps: Array.from({length:3},(_,i)=>({n:1156+i,t:`Episodio ${1156+i} — Isla Elbaph`,tp:"canon",arc:"Isla Elbaph",start:"—"}))},
+];
+
+// =============================================
+// STATE
+// =============================================
+let state = {
+  currentEp: 612,
+  watched: new Set(),
+  filter: 'all',
+  search: ''
+};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem('op_state');
+    if (raw) {
+      const s = JSON.parse(raw);
+      state.currentEp = s.currentEp || 612;
+      state.watched = new Set(s.watched || []);
+    } else {
+      // Primera carga: marcar 1-611 como vistos
+      state.currentEp = 612;
+      state.watched = new Set(Array.from({length: 611}, (_, i) => i + 1));
+      saveState();
+    }
+  } catch(e) {}
+}
+function saveState() {
+  localStorage.setItem('op_state', JSON.stringify({
+    currentEp: state.currentEp,
+    watched: [...state.watched]
+  }));
+}
+
+loadState();
+
+// Flat episode list
+const allEps = SEASONS.flatMap(s => s.eps.map(e => ({...e, seasonId: s.id, seasonName: s.name})));
+
+// =============================================
+// RENDER
+// =============================================
+function getEpById(n) { return allEps.find(e => e.n === n); }
+
+function renderBanner() {
+  const ep = getEpById(state.currentEp);
+  const banner = document.getElementById('current-banner');
+  if (!ep) { banner.classList.remove('show'); return; }
+  banner.classList.add('show');
+  document.getElementById('banner-ep-num').textContent = `Episodio ${String(ep.n).padStart(3,'0')} — ${ep.tp === 'filler' ? '⚡ RELLENO' : ep.tp === 'mixed' ? '↔ MIXTO' : '✓ CANON'}`;
+  document.getElementById('banner-ep-title').textContent = ep.t;
+}
+
+function updateProgress() {
+  const ep = getEpById(state.currentEp);
+  document.getElementById('progress-pill').textContent = `EP ${state.currentEp} / 1158`;
+  document.getElementById('s-watched').textContent = state.watched.size;
+}
+
+function typeColor(tp) {
+  return {canon:'canon',filler:'filler',mixed:'mixed',extra:'extra'}[tp]||'canon';
+}
+function typeBadge(tp) {
+  if(tp==='filler') return '<span class="ep-badge filler">RELLENO</span>';
+  if(tp==='mixed') return '<span class="ep-badge mixed">MIXTO</span>';
+  if(tp==='extra') return '<span class="ep-badge extra">EXTRA</span>';
+  return '';
+}
+
+function filterEps(eps) {
+  return eps.filter(ep => {
+    const f = state.filter;
+    if(f==='canon' && ep.tp!=='canon') return false;
+    if(f==='filler' && ep.tp!=='filler') return false;
+    if(f==='mixed' && ep.tp!=='mixed') return false;
+    if(f==='unwatched' && state.watched.has(ep.n)) return false;
+    if(state.search) {
+      const q = state.search.toLowerCase();
+      const numMatch = String(ep.n).includes(state.search);
+      const titleMatch = ep.t.toLowerCase().includes(q);
+      const arcMatch = (ep.arc||'').toLowerCase().includes(q);
+      if(!numMatch && !titleMatch && !arcMatch) return false;
+    }
+    return true;
+  });
+}
+
+function renderList() {
+  const container = document.getElementById('episode-list');
+  let html = '';
+  let lastArc = null;
+  let hasResults = false;
+
+  for(const season of SEASONS) {
+    const visible = filterEps(season.eps);
+    if(!visible.length) continue;
+    hasResults = true;
+
+    // Group by arc
+    const arcGroups = {};
+    for(const ep of visible) {
+      if(!arcGroups[ep.arc]) arcGroups[ep.arc] = [];
+      arcGroups[ep.arc].push(ep);
+    }
+
+    const isOpen = !state.search ? visible.some(e=>e.n===state.currentEp) : true;
+    html += `<div class="season-group ${isOpen?'open':''}" data-sid="${season.id}">
+      <div class="season-header" onclick="toggleSeason(${season.id})">
+        <div class="season-name">${season.name}</div>
+        <div class="season-meta">
+          <span>${season.range}</span>
+        </div>
+        <div class="season-chevron">▼</div>
+      </div>
+      <div class="season-episodes">`;
+
+    for(const [arc, eps] of Object.entries(arcGroups)) {
+      html += `<div class="arc-label">${arc}</div>`;
+      for(const ep of eps) {
+        const isCurrent = ep.n === state.currentEp;
+        const isWatched = state.watched.has(ep.n);
+        const tc = typeColor(ep.tp);
+        html += `<div class="ep-row ${isCurrent?'current-ep':''} ${isWatched?'watched':''}" 
+          onclick="openDetail(${ep.n})" data-ep="${ep.n}" id="ep-${ep.n}">
+          ${isCurrent?'<div class="current-marker"></div>':''}
+          <div class="ep-num ${tc}">${String(ep.n).padStart(3,'0')}</div>
+          <div class="ep-dot ${tc}"></div>
+          <div class="ep-info">
+            <div class="ep-title ${ep.tp==='filler'?'filler':''}">${ep.t}</div>
+            ${ep.start && ep.start!=='—' ? `<div class="ep-sub">▶ Desde ${ep.start}</div>` : ''}
+          </div>
+          ${typeBadge(ep.tp)}
+          <button class="watch-check" type="button" aria-label="Marcar episodio ${ep.n} como visto" onclick="event.stopPropagation();toggleWatch(${ep.n})">${isWatched?'✓':''}</button>
+        </div>`;
+      }
+    }
+    html += `</div></div>`;
+  }
+
+  if(!hasResults) {
+    html = '<div class="no-results">🏴‍☠️ No se encontraron episodios</div>';
+  }
+  container.innerHTML = html;
+}
+
+function toggleSeason(sid) {
+  const el = document.querySelector(`.season-group[data-sid="${sid}"]`);
+  if(el) el.classList.toggle('open');
+}
+
+function scrollToCurrentEp() {
+  const el = document.getElementById(`ep-${state.currentEp}`);
+  if(el) {
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+  } else {
+    // Open the season containing current ep
+    const ep = getEpById(state.currentEp);
+    if(ep) {
+      const sg = document.querySelector(`.season-group[data-sid="${ep.seasonId}"]`);
+      if(sg) { sg.classList.add('open'); setTimeout(()=>scrollToCurrentEp(),100); }
+    }
+  }
+}
+
+// =============================================
+// DETAIL
+// =============================================
+let detailEpN = null;
+
+function openDetail(n) {
+  const ep = getEpById(n);
+  if(!ep) return;
+  detailEpN = n;
+  const tc = typeColor(ep.tp);
+  const badgeLabels = {canon:'Canon',filler:'Relleno',mixed:'Mixto',extra:'Extra'};
+  const badgeColors = {canon:'background:rgba(232,232,240,0.1);color:var(--canon)',filler:'background:rgba(224,80,80,0.15);color:var(--filler)',mixed:'background:rgba(80,144,232,0.15);color:var(--mixed)',extra:'background:rgba(64,192,128,0.15);color:var(--extra)'};
+  document.getElementById('d-num').textContent = String(n).padStart(3,'0');
+  document.getElementById('d-badge').textContent = badgeLabels[ep.tp];
+  document.getElementById('d-badge').style.cssText = badgeColors[ep.tp];
+  document.getElementById('d-title').textContent = ep.t;
+  document.getElementById('d-season').textContent = `${ep.seasonName} · ${ep.arc||''}`;
+  let infoHtml = '';
+  if(ep.start && ep.start!=='—') infoHtml += `<div class="detail-tag">▶ Desde ${ep.start}</div>`;
+  infoHtml += `<div class="detail-tag">EP ${n}</div>`;
+  document.getElementById('d-info').innerHTML = infoHtml;
+  const noteEl = document.getElementById('d-note');
+  if(ep.note) { noteEl.style.display='block'; noteEl.textContent = '📝 ' + ep.note; }
+  else noteEl.style.display='none';
+  const tw = document.getElementById('d-toggle-watch');
+  tw.textContent = state.watched.has(n) ? 'Marcar no visto' : 'Marcar visto';
+  const sc = document.getElementById('d-set-current');
+  sc.textContent = n === state.currentEp ? 'Aqui estoy' : 'Estoy aqui';
+  document.getElementById('detail-overlay').classList.add('show');
+}
+
+function closeDetail() {
+  document.getElementById('detail-overlay').classList.remove('show');
+}
+
+document.getElementById('d-close').onclick = closeDetail;
+document.getElementById('detail-overlay').onclick = (e) => {
+  if(e.target === document.getElementById('detail-overlay')) closeDetail();
+};
+
+document.getElementById('d-set-current').onclick = () => {
+  state.currentEp = detailEpN;
+  saveState();
+  renderBanner();
+  updateProgress();
+  closeDetail();
+  renderList();
+  setTimeout(()=>scrollToCurrentEp(), 150);
+};
+
+document.getElementById('d-mark-upto').onclick = () => {
+  if(!confirm(`¿Marcar como vistos todos los episodios del 1 al ${detailEpN}?`)) return;
+  allEps.forEach(ep => { if(ep.n <= detailEpN) state.watched.add(ep.n); });
+  saveState();
+  updateProgress();
+  closeDetail();
+  renderList();
+};
+
+document.getElementById('d-toggle-watch').onclick = () => {
+  toggleWatch(detailEpN);
+  const tw = document.getElementById('d-toggle-watch');
+  tw.textContent = state.watched.has(detailEpN) ? 'Marcar no visto' : 'Marcar visto';
+};
+
+function toggleWatch(n) {
+  if(state.watched.has(n)) state.watched.delete(n);
+  else state.watched.add(n);
+  saveState();
+  updateProgress();
+  // Update just this row
+  const row = document.getElementById(`ep-${n}`);
+  if(row) {
+    row.classList.toggle('watched', state.watched.has(n));
+    const btn = row.querySelector('.watch-check');
+    if(btn) btn.textContent = state.watched.has(n) ? '✓' : '';
+  }
+}
+
+// =============================================
+// BANNER ACTIONS
+// =============================================
+document.getElementById('banner-goto').onclick = scrollToCurrentEp;
+document.getElementById('banner-prev').onclick = () => {
+  if(state.currentEp > 1) { state.currentEp--; saveState(); renderBanner(); updateProgress(); renderList(); setTimeout(scrollToCurrentEp,150); }
+};
+document.getElementById('banner-next').onclick = () => {
+  if(state.currentEp < 1158) { state.currentEp++; saveState(); renderBanner(); updateProgress(); renderList(); setTimeout(scrollToCurrentEp,150); }
+};
+
+// =============================================
+// SEARCH & FILTERS
+// =============================================
+const searchInput = document.getElementById('search-input');
+const clearBtn = document.getElementById('clear-btn');
+
+searchInput.oninput = () => {
+  state.search = searchInput.value.trim();
+  clearBtn.classList.toggle('show', !!state.search);
+  renderList();
+};
+clearBtn.onclick = () => {
+  searchInput.value = '';
+  state.search = '';
+  clearBtn.classList.remove('show');
+  renderList();
+};
+
+document.getElementById('filters').onclick = (e) => {
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  state.filter = btn.dataset.f;
+  renderList();
+};
+
+// =============================================
+// FAB
+// =============================================
+const fab = document.getElementById('scroll-fab');
+fab.onclick = scrollToCurrentEp;
+
+document.getElementById('main').addEventListener('scroll', (e) => {
+  const el = document.getElementById(`ep-${state.currentEp}`);
+  if(!el) { fab.classList.add('show'); return; }
+  const rect = el.getBoundingClientRect();
+  const inView = rect.top > 0 && rect.bottom < window.innerHeight;
+  fab.classList.toggle('show', !inView);
+});
+
+// =============================================
+// INIT
+// =============================================
+renderBanner();
+updateProgress();
+renderList();
+setTimeout(()=>scrollToCurrentEp(), 300);
+</script>
+</body>
+</html>
