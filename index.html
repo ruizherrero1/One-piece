@@ -390,16 +390,15 @@
     box-shadow: 0 10px 18px rgba(0,0,0,0.16);
   }
   .detail-action-btn:active { opacity:0.7; }
-  .btn-set-current { background:var(--accent); color:#111; }
-  .btn-toggle-watch { background:rgba(16, 39, 57, 0.94); color:var(--text); border-color:rgba(255, 231, 160, 0.12); }
-  .btn-mark-upto {
+  .btn-set-current {
+    grid-column:1/-1;
     background:linear-gradient(135deg, rgba(242, 193, 78, 0.98), rgba(255, 231, 160, 0.96));
     color:#231600;
     border:1px solid rgba(255, 231, 160, 0.34);
     min-height:60px;
     font-size:15px;
   }
-  .btn-mark-upto { grid-column:1/-1; }
+  .btn-toggle-watch { background:rgba(16, 39, 57, 0.94); color:var(--text); border-color:rgba(255, 231, 160, 0.12); }
   .btn-close-detail { grid-column:1/-1; background:rgba(16, 39, 57, 0.9); color:rgba(214, 223, 232, 0.78); border-color:rgba(255, 231, 160, 0.1); }
 
   /* JUMP TO EP */
@@ -456,7 +455,7 @@
     .progress-pill { padding:8px 12px; font-size:11px; }
     .banner-actions { flex-direction:column; }
     .detail-actions { grid-template-columns:1fr; }
-    .btn-mark-upto,
+    .btn-set-current,
     .btn-close-detail { grid-column:auto; }
   }
 
@@ -529,9 +528,8 @@
     <div class="detail-info-row" id="d-info"></div>
     <div class="detail-note" id="d-note" style="display:none"></div>
     <div class="detail-actions">
-      <button class="detail-action-btn btn-set-current" id="d-set-current">Marcar posicion</button>
+      <button class="detail-action-btn btn-set-current" id="d-set-current">Estoy aqui</button>
       <button class="detail-action-btn btn-toggle-watch" id="d-toggle-watch">Marcar visto</button>
-      <button class="detail-action-btn btn-mark-upto" id="d-mark-upto">Vistos hasta aqui</button>
       <button class="detail-action-btn btn-close-detail" id="d-close">Cerrar</button>
     </div>
   </div>
@@ -1930,8 +1928,7 @@ function openDetail(n) {
   else noteEl.style.display='none';
   const tw = document.getElementById('d-toggle-watch');
   tw.textContent = state.watched.has(n) ? 'Marcar no visto' : 'Marcar visto';
-  const sc = document.getElementById('d-set-current');
-  sc.textContent = n === state.currentEp ? 'Aqui estoy' : 'Estoy aqui';
+  document.getElementById('d-set-current').textContent = 'Estoy aqui';
   document.getElementById('detail-overlay').classList.add('show');
 }
 
@@ -1946,21 +1943,13 @@ document.getElementById('detail-overlay').onclick = (e) => {
 
 document.getElementById('d-set-current').onclick = () => {
   state.currentEp = detailEpN;
+  allEps.forEach(ep => { if(ep.n <= detailEpN) state.watched.add(ep.n); });
   saveState();
   renderBanner();
   updateProgress();
   closeDetail();
   renderList();
   setTimeout(()=>scrollToCurrentEp(), 150);
-};
-
-document.getElementById('d-mark-upto').onclick = () => {
-  if(!confirm(`¿Marcar como vistos todos los episodios del 1 al ${detailEpN}?`)) return;
-  allEps.forEach(ep => { if(ep.n <= detailEpN) state.watched.add(ep.n); });
-  saveState();
-  updateProgress();
-  closeDetail();
-  renderList();
 };
 
 document.getElementById('d-toggle-watch').onclick = () => {
